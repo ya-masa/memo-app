@@ -15,21 +15,27 @@
       </div>
 
       <div
-        class="memo-preview"
-        v-html="memo.content"
-      ></div>
+        v-for="memo in memos"
+        :key="memo.id"
+        class="memo"
+        @click="editMemo(memo)"
+      >
+        <div class="memo-date">
+          {{ formatDate(memo.updatedAt || memo.createdAt) }}
+        </div>
 
-      <div class="actions">
-        <button @click="editMemo(memo)">
-          編集
-        </button>
+        <div
+          class="memo-preview"
+          v-html="memo.content"
+        ></div>
 
-        <button @click="deleteMemo(memo.id)">
+        <button
+          @click.stop="deleteMemo(memo.id)"
+        >
           削除
         </button>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -101,36 +107,44 @@
 </script>
 
 <style>
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 16px;
-}
+  .container {
+    max-width: 800px;
+    margin: auto;
+    padding: 16px;
+  }
 
-button {
-  padding: 10px 18px;
-  margin: 5px;
-}
+  button {
+    padding: 10px 18px;
+    margin: 5px;
+  }
 
-.memo {
-  border: 1px solid #ccc;
-  padding: 12px;
-  margin-top: 12px;
-}
-.memo-preview {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
+  .memo {
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin-top: 12px;
+  }
+  .memo-preview {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 
-.memo-date {
-  text-align: right;
-  color: #888;
-  font-size: 12px;
-}
+  .memo-date {
+    text-align: right;
+    color: #888;
+    font-size: 12px;
+  }
 
-.actions {
-  margin-top: 10px;
-}
+  .actions {
+    margin-top: 10px;
+  }
+  .clickable {
+    cursor: pointer;
+  }
+
+  .clickable:hover {
+    background-color: #f5f5f5;
+  }
+
 </style>
