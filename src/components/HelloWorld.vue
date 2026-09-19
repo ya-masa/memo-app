@@ -1,95 +1,140 @@
-<script setup>
-import { ref } from 'vue'
-import heroImg from '../assets/hero.png'
-import viteLogo from '../assets/vite.svg'
-import vueLogo from '../assets/vue.svg'
+<template>
+  <div class="container">
+    <h1>予定メモ</h1>
 
-const count = ref(0)
+    <QuillEditor
+      v-model:content="content"
+      contentType="html"
+      theme="snow"
+      toolbar="full"
+    />
+
+    <button @click="saveMemo">
+      {{ editingId ? '更新' : '保存' }}
+    </button>
+
+    <hr>
+
+    <div
+      v-for="memo in memos"
+      :key="memo.id"
+      class="memo"
+    >
+      <div class="date">
+        {{ formatDate(memo.updatedAt || memo.createdAt) }}
+      </div>
+
+      <div v-html="memo.content"></div>
+
+      <div class="actions">
+        <button @click="editMemo(memo)">
+          編集
+        </button>
+
+        <button @click="deleteMemo(memo.id)">
+          削除
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
+import { db } from './db'
+
+const content = ref('')
+const memos = ref([])
+const editingId = ref(null)
+
+const loadMemos = async () => {
+  memos.value = await db.memos
+    .orderBy('createdAt')
+    .reverse()
+    .toArray()
+}
+
+const saveMemo = async () => {
+  if (!content.value) return
+
+  if (editingId.value) {
+    await db.memos.update(editingId.value, {
+      content: content.value,
+      updatedAt: new Date()
+    })
+  } else {
+    await db.memos.add({
+      content: content.value,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+  }
+
+  content.value = ''
+  editingId.value = null
+
+  await loadMemos()
+}
+
+const editMemo = (memo) => {
+  content.value = memo.content
+  editingId.value = memo.id
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}
+
+const deleteMemo = async (id) => {
+  if (!confirm('削除しますか？')) return
+
+  await db.memos.delete(id)
+  await loadMemos()
+}
+
+const formatDate = (date) => {
+  return new Date(date).toLocaleString()
+}
+
+onMounted(async () => {
+  await loadMemos()
+})
 </script>
 
-<template>
-  <section id="center">
-    <div class="hero">
-      <img :src="heroImg" class="base" width="170" height="179" alt="" />
-      <img :src="vueLogo" class="framework" alt="Vue logo" />
-      <img :src="viteLogo" class="vite" alt="Vite logo" />
-    </div>
-    <div>
-      <h1>Get started</h1>
-      <p>Edit <code>src/App.vue</code> and save to test <code>HMR</code></p>
-    </div>
-    <button type="button" class="counter" @click="count++">
-      Count is {{ count }}
-    </button>
-  </section>
+<style>
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 16px;
+}
 
-  <div class="ticks"></div>
+button {
+  padding: 10px 18px;
+  margin: 5px;
+}
 
-  <section id="next-steps">
-    <div id="docs">
-      <svg class="icon" role="presentation" aria-hidden="true">
-        <use href="/icons.svg#documentation-icon"></use>
-      </svg>
-      <h2>Documentation</h2>
-      <p>Your questions, answered</p>
-      <ul>
-        <li>
-          <a href="https://vite.dev/" target="_blank">
-            <img class="logo" :src="viteLogo" alt="" />
-            Explore Vite
-          </a>
-        </li>
-        <li>
-          <a href="https://vuejs.org/" target="_blank">
-            <img class="button-icon" :src="vueLogo" alt="" />
-            Learn more
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div id="social">
-      <svg class="icon" role="presentation" aria-hidden="true">
-        <use href="/icons.svg#social-icon"></use>
-      </svg>
-      <h2>Connect with us</h2>
-      <p>Join the Vite community</p>
-      <ul>
-        <li>
-          <a href="https://github.com/vitejs/vite" target="_blank">
-            <svg class="button-icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#github-icon"></use>
-            </svg>
-            GitHub
-          </a>
-        </li>
-        <li>
-          <a href="https://chat.vite.dev/" target="_blank">
-            <svg class="button-icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#discord-icon"></use>
-            </svg>
-            Discord
-          </a>
-        </li>
-        <li>
-          <a href="https://x.com/vite_js" target="_blank">
-            <svg class="button-icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#x-icon"></use>
-            </svg>
-            X.com
-          </a>
-        </li>
-        <li>
-          <a href="https://bsky.app/profile/vite.dev" target="_blank">
-            <svg class="button-icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#bluesky-icon"></use>
-            </svg>
-            Bluesky
-          </a>
-        </li>
-      </ul>
-    </div>
-  </section>
+.memo {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-top: 12px;
+}
+.memo-preview {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 
-  <div class="ticks"></div>
-  <section id="spacer"></section>
-</template>
+.memo-date {
+  text-align: right;
+  color: #888;
+  font-size: 12px;
+}
+
+.actions {
+  margin-top: 10px;
+}
+</style>
