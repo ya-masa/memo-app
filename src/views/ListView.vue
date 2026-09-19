@@ -9,32 +9,22 @@
       v-for="memo in memos"
       :key="memo.id"
       class="memo"
+      @click="editMemo(memo)"
     >
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
       </div>
 
       <div
-        v-for="memo in memos"
-        :key="memo.id"
-        class="memo"
-        @click="editMemo(memo)"
+        class="memo-preview"
+        v-html="memo.content"
+      ></div>
+
+      <button
+        @click.stop="deleteMemo(memo.id)"
       >
-        <div class="memo-date">
-          {{ formatDate(memo.updatedAt || memo.createdAt) }}
-        </div>
-
-        <div
-          class="memo-preview"
-          v-html="memo.content"
-        ></div>
-
-        <button
-          @click.stop="deleteMemo(memo.id)"
-        >
-          削除
-        </button>
-      </div>
+        削除
+      </button>
     </div>
   </div>
 </template>
