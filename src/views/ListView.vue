@@ -1,29 +1,38 @@
 <template>
   <div class="container">
-    <button @click="NewMemo()">
+
+    <button @click="newMemo">
       新規作成
     </button>
+
     <div
-      class="memo-preview"
-      v-html="memo.content"
-    ></div>
-    <div class="date">
-      {{ formatDate(memo.updatedAt || memo.createdAt) }}
+      v-for="memo in memos"
+      :key="memo.id"
+      class="memo"
+    >
+      <div class="memo-date">
+        {{ formatDate(memo.updatedAt || memo.createdAt) }}
+      </div>
+
+      <div
+        class="memo-preview"
+        v-html="memo.content"
+      ></div>
+
+      <div class="actions">
+        <button @click="editMemo(memo)">
+          編集
+        </button>
+
+        <button @click="deleteMemo(memo.id)">
+          削除
+        </button>
+      </div>
     </div>
 
-    <div v-html="memo.content"></div>
-
-    <div class="actions">
-      <button @click="editMemo(memo)">
-        編集
-      </button>
-
-      <button @click="deleteMemo(memo.id)">
-        削除
-      </button>
-    </div>
   </div>
 </template>
+
 <script setup>
   import { ref, onMounted } from 'vue'
   import '@vueup/vue-quill/dist/vue-quill.snow.css'
