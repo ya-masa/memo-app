@@ -32,25 +32,25 @@
     </button>
     <button
       @click="toggleBlue"
-      :class="{ active: activeFormat === 'blue' }"
+      :class="{ active: fontColor === 'blue' }"
       class="color-btn-f blue"
     ></button>
 
     <button
       @click="toggleRed"
-      :class="{ active: activeFormat === 'red' }"
+      :class="{ active: fontColor === 'red' }"
       class="color-btn-f red"
     ></button>
 
     <button
       @click="toggleYellow"
-      :class="{ active: activeFormat === 'yellow' }"
+      :class="{ active: markerColor === 'yellow' }"
       class="color-btn-m yellow"
     ></button>
 
     <button
       @click="toggleGreen"
-      :class="{ active: activeFormat === 'green' }"
+      :class="{ active: markerColor === 'green' }"
       class="color-btn-m green"
     ></button>
   </div>
@@ -74,6 +74,7 @@
   const isBold = ref(false)
   const fontColor = ref('black')
   const markerColor = ref('')
+  const quill = editor.value
 
   const loadMemo = async () => {
 
@@ -88,7 +89,9 @@
       content.value = memo.content
     }
   }
-
+  const onReady = (quill) => {
+    editor.value = quill
+  }
   const saveMemo = async () => {
 
     if (!content.value) return
@@ -125,15 +128,19 @@
     router.push('/')
   }
   const toggleBold = () => {
+
+    if (!editor.value) return
+
     isBold.value = !isBold.value
 
-    const quill = editor.value.getQuill()
-
-    quill.format('bold', isBold.value)
+    editor.value.format(
+      'bold',
+      isBold.value
+    )
   }
 const toggleBlue = () => {
 
-  const quill = editor.value.getQuill()
+  if (!editor.value) return
 
   if (fontColor.value === 'blue') {
     fontColor.value = 'black'
@@ -145,7 +152,7 @@ const toggleBlue = () => {
 }
   const toggleRed = () => {
 
-    const quill = editor.value.getQuill()
+    if (!editor.value) return
 
     if (fontColor.value === 'red') {
       fontColor.value = 'black'
@@ -158,7 +165,7 @@ const toggleBlue = () => {
 
   const toggleYellow = () => {
 
-    const quill = editor.value.getQuill()
+    if (!editor.value) return
 
     if (markerColor.value === 'yellow') {
       markerColor.value = ''
@@ -170,7 +177,7 @@ const toggleBlue = () => {
   }
   const toggleGreen = () => {
 
-    const quill = editor.value.getQuill()
+    if (!editor.value) return
 
     if (markerColor.value === 'green') {
       markerColor.value = ''

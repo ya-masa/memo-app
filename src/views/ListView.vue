@@ -167,18 +167,23 @@
     margin: 5px;
   }
   .new-btn {
-    width: 180px;
-    height: 60px;
+    width: 220px;
+    height: 70px;
 
-    font-size: 22px;
+    font-size: 26px;
     font-weight: bold;
 
-    border-radius: 15px;
+    border-radius: 20px;
 
     background: #4caf50;
     color: white;
+
+    border: none;
+
     display: block;
-    margin: 20px auto;
+    margin: 30px auto;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
   }
 
 
@@ -217,8 +222,10 @@
     background-color: #f5f5f5;
   }
   .selected {
-    border: 2px solid #2196f3;
-    background: #e3f2fd;
+    border: 4px solid #2196f3;
+    background: #bbdefb;
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(33,150,243,.6);
   }
 
   .checkmark {
