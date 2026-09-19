@@ -17,7 +17,7 @@
         v-model:content="content"
         contentType="html"
         theme="snow"
-        toolbar=""
+        toolbar="false"
       />
     </div>
   </div>
@@ -146,7 +146,7 @@ const setRed = () => {
 
 <style>
   .container {
-    max-width: 700px;
+    max-width: 90%;
     margin: 0 auto;
     padding: 16px;
   }
