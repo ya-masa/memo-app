@@ -15,9 +15,36 @@
       v-model:content="content"
       contentType="html"
       theme="snow"
-      :toolbar="toolbarOptions"
-      :formats="formats"
+      :toolbar="false"
     />
+  </div>
+  <div class="footer-toolbar">
+    <button @click="setBold" class="bold-btn">
+      太字
+    </button>
+    <button
+      @click="setBlue"
+      :class="{ active: activeFormat === 'blue' }"
+      class="color-btn-f blue"
+    ></button>
+
+    <button
+      @click="setRed"
+      :class="{ active: activeFormat === 'red' }"
+      class="color-btn-f red"
+    ></button>
+
+    <button
+      @click="setYellow"
+      :class="{ active: activeFormat === 'yellow' }"
+      class="color-btn-m yellow"
+    ></button>
+
+    <button
+      @click="setGreen"
+      :class="{ active: activeFormat === 'green' }"
+      class="color-btn-m green"
+    ></button>
   </div>
 </template>
 
@@ -35,11 +62,8 @@
   const editingId = ref(null)
   
   const message = ref('')
-  const formats = [
-    'bold',
-    'color',
-    'background'
-  ]
+  const editor = ref(null)
+  const activeFormat = ref('')
 
   const loadMemo = async () => {
 
@@ -90,32 +114,36 @@
     }
     router.push('/')
   }
-  const toolbarOptions = [
-    ['bold'],
-    [
-      {
-        color: [
-          '#0000ff', // 青
-          '#ff0000'  // 赤
-        ]
-      }
-    ],
-    [
-      {
-        background: [
-          '#ffff00', // 黄
-          '#ccff99'  // 黄緑
-        ]
-      }
-    ]
-  ]
+  const setBold = () => {
+    const quill = editor.value.getQuill()
+    quill.format('bold', true)
+  }
+const setBlue = () => {
+  const quill = editor.value.getQuill()
+  quill.format('color', '#0000ff')
 
+  activeFormat.value = 'blue'
+}
+const setRed = () => {
+  const quill = editor.value.getQuill()
+  quill.format('color', '#ff0000')
+
+  activeFormat.value = 'red'
+}
+
+  const setYellow = () => {
+    const quill = editor.value.getQuill()
+    quill.format('background', '#ffff00')
+  }
+  const setGreen = () => {
+    const quill = editor.value.getQuill()
+    quill.format('background', '#ccff99')
+  }
 </script>
 
 <style>
   .container {
     max-width: 800px;
-    margin: auto;
     padding: 16px;
   }
 
@@ -131,5 +159,65 @@
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 4px;
+  }
+  .footer-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    padding: 10px;
+
+    background: white;
+    border-top: 1px solid #ddd;
+  }
+
+  .bold-btn {
+    width: 40px;
+    height: 40px;
+    font-weight: bold;
+  }
+
+  .color-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+  }
+
+  .blue {
+    background: #2196f3;
+  }
+
+  .red {
+    background: #f44336;
+  }
+
+  .yellow {
+    background: #ffeb3b;
+  }
+
+  .green {
+    background: #8bc34a;
+  }
+  .color-btn-f{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .color-btn-b{
+    width: 32px;
+    height: 32px;
+    border-radius: 10%;
+  }
+
+  .active {
+    transform: scale(1.2);
+    border: 4px solid #333;
+    box-shadow: 0 0 8px rgba(0,0,0,.3);
   }
 </style>
