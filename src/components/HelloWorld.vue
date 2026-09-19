@@ -105,36 +105,37 @@ onMounted(async () => {
 </script>
 
 <style>
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 16px;
-}
+  .container {
+    max-width: 800px;
+    margin: auto;
+    padding: 16px;
+  }
 
-button {
-  padding: 10px 18px;
-  margin: 5px;
-}
+  button {
+    padding: 10px 18px;
+    margin: 5px;
+  }
 
-.memo {
-  border: 1px solid #ccc;
-  padding: 12px;
-  margin-top: 12px;
-}
-.memo-preview {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
+  .memo {
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin-top: 12px;
+  }
+  .memo-preview {
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 
-.memo-date {
-  text-align: right;
-  color: #888;
-  font-size: 12px;
-}
+  .memo-date {
+    text-align: right;
+    color: #888;
+    font-size: 12px;
+  }
 
-.actions {
-  margin-top: 10px;
-}
+  .actions {
+    margin-top: 10px;
+  }
 </style>
