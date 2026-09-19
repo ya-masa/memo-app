@@ -11,12 +11,15 @@
       {{ editingId ? '更新' : '保存' }}
     </button>
 
-    <QuillEditor
-      ref="editor"
-      v-model:content="content"
-      contentType="html"
-      theme="snow"
-    />
+    <div class="editor-wrapper">
+      <QuillEditor
+        ref="editor"
+        v-model:content="content"
+        contentType="html"
+        theme="snow"
+        toolbar=""
+      />
+    </div>
   </div>
   <div class="footer-toolbar">
     <button @click="setBold" class="bold-btn">
@@ -143,10 +146,14 @@ const setRed = () => {
 
 <style>
   .container {
-    max-width: 800px;
+    max-width: 700px;
+    margin: 0 auto;
     padding: 16px;
   }
-
+  .editor-wrapper {
+    width: 95%;
+    margin: 0 auto;
+  }
   button {
     padding: 10px 18px;
     margin-right: 8px;

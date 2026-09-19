@@ -1,12 +1,14 @@
 <template>
   <div class="header">
-    <button @click="toggleMenu">
-      ⋮
-    </button>
+    <button 
+        class="menu-button" 
+        @click="toggleMenu"
+      >⋮</button>
 
     <div v-if="showMenu" class="menu">
-      <button @click="startSelectMode">
-        選択削除
+      <button 
+        @click="startSelectMode"
+      >選択削除
       </button>
     </div>
   </div>
@@ -119,20 +121,40 @@
 
 <style>
   .container {
-    max-width: 800px;
-    margin: auto;
+    max-width: 700px;
+    margin: 0 auto;
     padding: 16px;
   }
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 8px;
+    z-index: 100;
+  }
 
+  .menu-button {
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
   button {
     padding: 10px 18px;
     margin: 5px;
   }
 
   .memo {
-    border: 1px solid #ccc;
-    padding: 12px;
-    margin-top: 12px;
+    width: 95%;
+    margin: 12px auto;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    padding: 16px;
+    box-sizing: border-box;
   }
   .memo-preview {
     overflow: hidden;
