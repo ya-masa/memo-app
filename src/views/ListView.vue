@@ -36,6 +36,7 @@
 <script setup>
   import { ref, onMounted } from 'vue'
   import '@vueup/vue-quill/dist/vue-quill.snow.css'
+  import { useRouter } from 'vue-router'
   import { db } from '../db'
 
   const content = ref('')
