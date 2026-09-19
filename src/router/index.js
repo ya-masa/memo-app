@@ -13,6 +13,10 @@ const router = createRouter({
         {
             path: '/edit',
             component: EditView
+        },
+        {
+            path: '/edit/:id',
+            component: EditView
         }
     ]
 })
