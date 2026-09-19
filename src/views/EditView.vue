@@ -3,11 +3,16 @@
     <div v-if="message" class="message">
       {{ message }}
     </div>
-    <button @click="cancelEdit">
-      戻る
+    <button 
+      class="back-btn" 
+      @click="cancelEdit"
+    >戻る
     </button>
 
-    <button @click="saveMemo">
+    <button
+      class="save-btn"
+      @click="saveMemo"
+    >
       {{ editingId ? '更新' : '保存' }}
     </button>
 
@@ -192,6 +197,22 @@ const toggleBlue = () => {
     margin-right: 8px;
     margin-bottom: 10px;
   }
+  .back-btn {
+    width: 80px;
+    height: 40px;
+  }
+  .save-btn {
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+
+    background: #2196f3;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+  }
   .message {
     background: #e8f5e9;
     color: #2e7d32;
@@ -259,6 +280,18 @@ const toggleBlue = () => {
   .green {
     background: #8bc34a;
   }
+  .bold-btn.active {
+    background: #333;
+    color: white;
+  }
+
+  .blue.active,
+  .red.active,
+  .yellow.active,
+  .green.active {
+    border: 4px solid #000;
+    transform: scale(1.3);
+  }
   .color-btn-f{
     width: 32px;
     height: 32px;
@@ -270,10 +303,10 @@ const toggleBlue = () => {
     border-radius: 10%;
   }
   .active {
-    transform: scale(1.1);
+    transform: scale(1.25);
+    border: 4px solid #000;
     box-shadow:
-      inset 0 0 6px rgba(0,0,0,.4),
-      0 0 8px rgba(0,0,0,.2);
-    border: 3px solid #333;
+      0 0 12px rgba(0,0,0,.4),
+      0 0 0 3px #fff;
   }
 </style>

@@ -25,7 +25,10 @@
         キャンセル
       </button>
     </div>
-    <button @click="newMemo">
+    <button
+      class="new-btn"
+      @click="newMemo"
+    >
       新規作成
     </button>
 
@@ -163,6 +166,21 @@
     padding: 10px 18px;
     margin: 5px;
   }
+  .new-btn {
+    width: 180px;
+    height: 60px;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    border-radius: 15px;
+
+    background: #4caf50;
+    color: white;
+    display: block;
+    margin: 20px auto;
+  }
+
 
   .memo {
     width: 95%;
