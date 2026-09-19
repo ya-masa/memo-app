@@ -12,10 +12,10 @@
     </button>
 
     <QuillEditor
+      ref="editor"
       v-model:content="content"
       contentType="html"
       theme="snow"
-      :toolbar="false"
     />
   </div>
   <div class="footer-toolbar">
