@@ -33,8 +33,14 @@
       v-for="memo in memos"
       :key="memo.id"
       class="memo"
-      @click="editMemo(memo)"
+      :class="{ selected: selectedIds.includes(memo.id) }"
+      @click="toggleSelect(memo.id)"
     >
+      <span v-if="selectMode">
+        {{ selectedIds.includes(memo.id) ? '✓' : '' }}
+      </span>
+
+      <div v-html="memo.content"></div>
       <div
         class="memo-preview"
         v-html="memo.content"
@@ -66,7 +72,15 @@
     selectMode.value = true
     showMenu.value = false
   }
+  const toggleSelect = (id) => {
+    const index = selectedIds.value.indexOf(id)
 
+    if (index === -1) {
+      selectedIds.value.push(id)
+    } else {
+      selectedIds.value.splice(index, 1)
+    }
+  }
   const loadMemos = async () => {
     memos.value = await db.memos
       .orderBy('createdAt')
@@ -121,10 +135,11 @@
 
 <style>
   .container {
-    max-width: 90%;
+    max-width: 640px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 12px;
   }
+
   .header {
     display: flex;
     justify-content: flex-end;
@@ -180,5 +195,8 @@
   .clickable:hover {
     background-color: #f5f5f5;
   }
-
+  .selected {
+    border: 2px solid #2196f3;
+    background: #e3f2fd;
+  }
 </style>

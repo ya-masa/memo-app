@@ -23,7 +23,7 @@
   </div>
   <div class="footer-toolbar">
     <button @click="setBold" class="bold-btn">
-      太字
+      B
     </button>
     <button
       @click="setBlue"
