@@ -1,6 +1,28 @@
 <template>
-  <div class="container">
+  <div class="header">
+    <button @click="toggleMenu">
+      ⋮
+    </button>
 
+    <div v-if="showMenu" class="menu">
+      <button @click="startSelectMode">
+        選択削除
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <div
+      v-if="selectMode"
+      class="select-actions"
+    >
+      <button @click="deleteSelected">
+        削除
+      </button>
+
+      <button @click="cancelSelect">
+        キャンセル
+      </button>
+    </div>
     <button @click="newMemo">
       新規作成
     </button>
@@ -11,20 +33,14 @@
       class="memo"
       @click="editMemo(memo)"
     >
-      <div class="memo-date">
-        {{ formatDate(memo.updatedAt || memo.createdAt) }}
-      </div>
-
       <div
         class="memo-preview"
         v-html="memo.content"
+        @click="!selectMode && editMemo(memo)"
       ></div>
-
-      <button
-        @click.stop="deleteMemo(memo.id)"
-      >
-        削除
-      </button>
+      <div class="memo-date">
+        {{ formatDate(memo.updatedAt || memo.createdAt) }}
+      </div>
     </div>
   </div>
 </template>
@@ -35,9 +51,19 @@
   import { useRouter } from 'vue-router'
   import { db } from '../db'
 
-  const content = ref('')
   const memos = ref([])
-  const editingId = ref(null)
+  const selectMode = ref(false)
+  const selectedIds = ref([])
+  const showMenu = ref(false)
+
+  const toggleMenu = () => {
+    showMenu.value = !showMenu.value
+  }
+
+  const startSelectMode = () => {
+    selectMode.value = true
+    showMenu.value = false
+  }
 
   const loadMemos = async () => {
     memos.value = await db.memos
@@ -50,35 +76,9 @@
   const newMemo = () => {
     router.push('/edit')
   }
-  const saveMemo = async () => {
-    if (!content.value) return
-
-    if (editingId.value) {
-      await db.memos.update(editingId.value, {
-        content: content.value,
-        updatedAt: new Date()
-      })
-    } else {
-      await db.memos.add({
-        content: content.value,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      })
-    }
-
-    content.value = ''
-    editingId.value = null
-
-    await loadMemos()
-  }
+  
   const editMemo = (memo) => {
     router.push(`/edit/${memo.id}`)
-  }
-  const deleteMemo = async (id) => {
-    if (!confirm('削除しますか？')) return
-
-    await db.memos.delete(id)
-    await loadMemos()
   }
 
   const formatDate = (date) => {
@@ -94,6 +94,27 @@
   onMounted(async () => {
     await loadMemos()
   })
+  const deleteSelected = async () => {
+
+    if (!selectedIds.value.length) return
+
+    if (!confirm('選択したメモを削除しますか？')) {
+      return
+    }
+
+    for (const id of selectedIds.value) {
+      await db.memos.delete(id)
+    }
+
+    selectedIds.value = []
+    selectMode.value = false
+
+    await loadMemos()
+  }
+  const cancelSelect = () => {
+    selectedIds.value = []
+    selectMode.value = false
+  }
 </script>
 
 <style>
