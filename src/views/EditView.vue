@@ -14,37 +14,37 @@
     <div class="editor-wrapper">
       <QuillEditor
         ref="editor"
+        @ready="onReady"
         v-model:content="content"
         contentType="html"
         theme="snow"
-        :toolbar="false"
       />
     </div>
   </div>
   <div class="footer-toolbar">
-    <button @click="setBold" class="bold-btn">
+    <button @click="toggleBold" class="bold-btn">
       B
     </button>
     <button
-      @click="setBlue"
+      @click="toggleBlue"
       :class="{ active: activeFormat === 'blue' }"
       class="color-btn-f blue"
     ></button>
 
     <button
-      @click="setRed"
+      @click="toggleRed"
       :class="{ active: activeFormat === 'red' }"
       class="color-btn-f red"
     ></button>
 
     <button
-      @click="setYellow"
+      @click="toggleYellow"
       :class="{ active: activeFormat === 'yellow' }"
       class="color-btn-m yellow"
     ></button>
 
     <button
-      @click="setGreen"
+      @click="toggleGreen"
       :class="{ active: activeFormat === 'green' }"
       class="color-btn-m green"
     ></button>
@@ -217,7 +217,7 @@ const toggleBlue = () => {
     border-top: 1px solid #ddd;
   }
   .ql-toolbar {
-    display: none !important;
+    display:none;
   }
   .bold-btn {
     width: 40px;
@@ -268,5 +268,12 @@ const toggleBlue = () => {
     width: 32px;
     height: 32px;
     border-radius: 10%;
+  }
+  .active {
+    transform: scale(1.1);
+    box-shadow:
+      inset 0 0 6px rgba(0,0,0,.4),
+      0 0 8px rgba(0,0,0,.2);
+    border: 3px solid #333;
   }
 </style>
