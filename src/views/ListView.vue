@@ -34,18 +34,21 @@
       :key="memo.id"
       class="memo"
       :class="{ selected: selectedIds.includes(memo.id) }"
-      @click="toggleSelect(memo.id)"
+      @click="selectMode && toggleSelect(memo.id)"
     >
-      <span v-if="selectMode">
+      <span
+        v-if="selectMode"
+        class="checkmark"
+      >
         {{ selectedIds.includes(memo.id) ? '✓' : '' }}
       </span>
 
-      <div v-html="memo.content"></div>
       <div
         class="memo-preview"
         v-html="memo.content"
-        @click="!selectMode && editMemo(memo)"
+        @click.stop="!selectMode && editMemo(memo)"
       ></div>
+
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
       </div>
@@ -198,5 +201,17 @@
   .selected {
     border: 2px solid #2196f3;
     background: #e3f2fd;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #2196f3;
+  }
+
+  .memo {
+    position: relative;
   }
 </style>
