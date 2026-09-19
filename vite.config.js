@@ -3,11 +3,12 @@ import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  base: '/memo-app/',
+  
   plugins: [
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
-      base: '/memo-app/',
       manifest: {
         name: '予定メモ',
         short_name: '予定メモ',
