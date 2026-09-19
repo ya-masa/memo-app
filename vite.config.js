@@ -4,18 +4,21 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   base: '/memo-app/',
-  
+
   plugins: [
     vue(),
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: '予定メモ',
-        short_name: '予定メモ',
+        name: 'メモ',
+        short_name: 'メモ',
+
+        start_url: '/memo-app/',
+        scope: '/memo-app/',
+
         theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',
-        start_url: '/',
         icons: [
           {
             src: 'icons/icon-192.png',
