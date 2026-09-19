@@ -17,7 +17,7 @@
         v-model:content="content"
         contentType="html"
         theme="snow"
-        toolbar="false"
+        :toolbar="false"
       />
     </div>
   </div>
@@ -66,7 +66,9 @@
   
   const message = ref('')
   const editor = ref(null)
-  const activeFormat = ref('')
+  const isBold = ref(false)
+  const fontColor = ref('black')
+  const markerColor = ref('')
 
   const loadMemo = async () => {
 
@@ -117,30 +119,61 @@
     }
     router.push('/')
   }
-  const setBold = () => {
+  const toggleBold = () => {
+    isBold.value = !isBold.value
+
     const quill = editor.value.getQuill()
-    quill.format('bold', true)
+
+    quill.format('bold', isBold.value)
   }
-const setBlue = () => {
+const toggleBlue = () => {
+
   const quill = editor.value.getQuill()
-  quill.format('color', '#0000ff')
 
-  activeFormat.value = 'blue'
-}
-const setRed = () => {
-  const quill = editor.value.getQuill()
-  quill.format('color', '#ff0000')
-
-  activeFormat.value = 'red'
-}
-
-  const setYellow = () => {
-    const quill = editor.value.getQuill()
-    quill.format('background', '#ffff00')
+  if (fontColor.value === 'blue') {
+    fontColor.value = 'black'
+    quill.format('color', '#000000')
+  } else {
+    fontColor.value = 'blue'
+    quill.format('color', '#0000ff')
   }
-  const setGreen = () => {
+}
+  const toggleRed = () => {
+
     const quill = editor.value.getQuill()
-    quill.format('background', '#ccff99')
+
+    if (fontColor.value === 'red') {
+      fontColor.value = 'black'
+      quill.format('color', '#000000')
+    } else {
+      fontColor.value = 'red'
+      quill.format('color', '#ff0000')
+    }
+  }
+
+  const toggleYellow = () => {
+
+    const quill = editor.value.getQuill()
+
+    if (markerColor.value === 'yellow') {
+      markerColor.value = ''
+      quill.format('background', false)
+    } else {
+      markerColor.value = 'yellow'
+      quill.format('background', '#ffff00')
+    }
+  }
+  const toggleGreen = () => {
+
+    const quill = editor.value.getQuill()
+
+    if (markerColor.value === 'green') {
+      markerColor.value = ''
+      quill.format('background', false)
+    } else {
+      markerColor.value = 'green'
+      quill.format('background', '#ccff99')
+    }
   }
 </script>
 
@@ -167,6 +200,7 @@ const setRed = () => {
     margin-bottom: 10px;
     border-radius: 4px;
   }
+
   .footer-toolbar {
     position: fixed;
     bottom: 0;
@@ -182,13 +216,27 @@ const setRed = () => {
     background: white;
     border-top: 1px solid #ddd;
   }
-
+  .ql-toolbar {
+    display: none !important;
+  }
   .bold-btn {
     width: 40px;
     height: 40px;
     font-weight: bold;
   }
+  .tool-btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+  }
 
+  .tool-btn.active {
+    box-shadow: inset 0 0 8px rgba(0,0,0,.3);
+    transform: translateY(2px);
+    border: 2px solid #2196f3;
+  }
   .color-btn {
     width: 40px;
     height: 40px;
@@ -220,11 +268,5 @@ const setRed = () => {
     width: 32px;
     height: 32px;
     border-radius: 10%;
-  }
-
-  .active {
-    transform: scale(1.2);
-    border: 4px solid #333;
-    box-shadow: 0 0 8px rgba(0,0,0,.3);
   }
 </style>
