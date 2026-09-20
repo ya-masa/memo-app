@@ -29,7 +29,7 @@
   <div class="footer-toolbar">
     <button 
       @click="toggleBold" 
-      :class="{ active: fontBold === 'bold' }"
+      :class="{ active: isBold === true }"
       class="bold-btn" >B
     </button>
     <button
@@ -59,136 +59,114 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
-  import { useRoute, useRouter } from 'vue-router'
-  import { QuillEditor } from '@vueup/vue-quill'
-  import '@vueup/vue-quill/dist/vue-quill.snow.css'
-  import { db } from '../db'
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { db } from '../db'
 
-  const route = useRoute()
-  const router = useRouter()
+const route = useRoute()
+const router = useRouter()
 
-  const content = ref('')
-  const editingId = ref(null)
-  
-  const message = ref('')
-  const editor = ref(null)
-  const isBold = ref(false)
-  const fontColor = ref('black')
-  const markerColor = ref('')
-  const quill = editor.value
+const content = ref('')
+const editingId = ref(null)
 
-  const loadMemo = async () => {
+const message = ref('')
 
-    const id = Number(route.params.id)
+const editor = ref(null)
 
-    if (!id) return
+const isBold = ref(false)
+const fontColor = ref('black')
+const markerColor = ref('')
 
-    const memo = await db.memos.get(id)
+const onReady = (editorInstance) => {
+  console.log('ready', editorInstance)
+  editor.value = editorInstance
+}
 
-    if (memo) {
-      editingId.value = memo.id
-      content.value = memo.content
-    }
-  }
-  const onReady = (quill) => {
-    editor.value = quill
-  }
-  const saveMemo = async () => {
+const loadMemo = async () => {
+  const id = Number(route.params.id)
 
-    if (!content.value) return
+  if (!id) return
 
-    if (editingId.value) {
-      await db.memos.update(editingId.value, {
-        content: content.value,
-        updatedAt: new Date()
-      })
+  const memo = await db.memos.get(id)
 
-      message.value = '更新しました'
-    } else {
-      await db.memos.add({
-        content: content.value,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      })
-
-      message.value = '保存しました'
-    }
-    setTimeout(() => {
-      router.push('/')
-    }, 1000)
-  }
-
-  onMounted(() => {
-    loadMemo()
-  })
-
-  const cancelEdit = () => {
-    if (!confirm('入力内容を破棄して一覧へ戻りますか？')) {
-      return
-    }
-    router.push('/')
-  }
-  const toggleBold = () => {
-
-    if (!editor.value) return
-
-    isBold.value = !isBold.value
-
-    editor.value.format(
-      'bold',
-      isBold.value
-    )
-  }
-const toggleBlue = () => {
-
-  if (!editor.value) return
-
-  if (fontColor.value === 'blue') {
-    fontColor.value = 'black'
-    quill.format('color', '#000000')
-  } else {
-    fontColor.value = 'blue'
-    quill.format('color', '#0000ff')
+  if (memo) {
+    editingId.value = memo.id
+    content.value = memo.content
   }
 }
-  const toggleRed = () => {
 
-    if (!editor.value) return
+const saveMemo = async () => {
+  if (!content.value) return
 
-    if (fontColor.value === 'red') {
-      fontColor.value = 'black'
-      quill.format('color', '#000000')
-    } else {
-      fontColor.value = 'red'
-      quill.format('color', '#ff0000')
-    }
+  if (editingId.value) {
+    await db.memos.update(editingId.value, {
+      content: content.value,
+      updatedAt: new Date()
+    })
+
+    message.value = '更新しました'
+  } else {
+    await db.memos.add({
+      content: content.value,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+
+    message.value = '保存しました'
   }
 
-  const toggleYellow = () => {
+  setTimeout(() => {
+    router.push('/')
+  }, 1000)
+}
 
-    if (!editor.value) return
-
-    if (markerColor.value === 'yellow') {
-      markerColor.value = ''
-      quill.format('background', false)
-    } else {
-      markerColor.value = 'yellow'
-      quill.format('background', '#ffff00')
-    }
+const cancelEdit = () => {
+  if (!confirm('入力内容を破棄して一覧へ戻りますか？')) {
+    return
   }
-  const toggleGreen = () => {
 
-    if (!editor.value) return
+  router.push('/')
+}
 
-    if (markerColor.value === 'green') {
-      markerColor.value = ''
-      quill.format('background', false)
-    } else {
-      markerColor.value = 'green'
-      quill.format('background', '#ccff99')
-    }
+const toggleBold = () => {
+  isBold.value = !isBold.value
+}
+
+const toggleBlue = () => {
+  if (fontColor.value === 'blue') {
+    fontColor.value = 'black'
+  } else {
+    fontColor.value = 'blue'
   }
+}
+
+const toggleRed = () => {
+  if (fontColor.value === 'red') {
+    fontColor.value = 'black'
+  } else {
+    fontColor.value = 'red'
+  }
+}
+
+const toggleYellow = () => {
+  if (markerColor.value === 'yellow') {
+    markerColor.value = ''
+  } else {
+    markerColor.value = 'yellow'
+  }
+}
+
+const toggleGreen = () => {
+  if (markerColor.value === 'green') {
+    markerColor.value = ''
+  } else {
+    markerColor.value = 'green'
+  }
+}
+
+onMounted(() => {
+  loadMemo()
+})
 </script>
 
 <style>
