@@ -14,7 +14,39 @@
     >
       {{ editingId ? '更新' : '保存' }}
     </button>
+    
+    <div class="current-format">
+      <span v-if="isBold">
+        B
+      </span>
+      <span
+        v-if="fontColor === 'black'"
+        class="black-indicator"
+      >
+        ⚫
+      </span>
+      <span
+        v-if="fontColor === 'blue'"
+      >
+        🔵
+      </span>
+      <span
+        v-if="fontColor === 'red'"
+      >
+        🔴
+      </span>
+      <span
+        v-if="markerColor === 'yellow'"
+      >
+        🟨
+      </span>
 
+      <span
+        v-if="markerColor === 'green'"
+      >
+        🟩
+      </span>
+    </div>
     <div
       ref="editor"
       class="editor"
@@ -37,14 +69,14 @@
       :class="{ active: fontColor === 'black' }"
       @click="toggleBlack"
     >
-      {{ fontColor === 'black' ? '✓' : '' }}
+      ⚫{{ fontColor === 'black' ? '✓' : '' }}
     </button>
     <button
       class="color-btn blue"
       :class="{ active: fontColor === 'blue' }"
       @click="toggleBlue"
     >
-      {{ fontColor === 'blue' ? '✓' : '' }}
+      🔵{{ fontColor === 'blue' ? '✓' : '' }}
     </button>
 
     <button
@@ -52,7 +84,7 @@
       :class="{ active: fontColor === 'red' }"
       @click="toggleRed"
     >
-      {{ fontColor === 'red' ? '✓' : '' }}
+      🔴{{ fontColor === 'red' ? '✓' : '' }}
     </button>
 
     <button
@@ -60,14 +92,14 @@
       :class="{ active: markerColor === 'yellow' }"
       @click="toggleYellow"
     >
-      {{ markerColor === 'yellow' ? '✓' : '' }}
+     🟨 {{ markerColor === 'yellow' ? '✓' : '' }}
     </button>
 
     <button
       class="color-btn green"
       :class="{ active: markerColor === 'green' }"
       @click="toggleGreen"
-    >
+    >🟩
       {{ markerColor === 'green' ? '✓' : '' }}
     </button>
   </div>
@@ -253,9 +285,6 @@
   .color-btn {
     transition: all 0.2s ease;
   }
-  .blue {
-    background: #2196f3;
-  }
   .color-btn {
   position: relative;
   }
@@ -265,17 +294,22 @@
     border: 4px solid #000;
     box-shadow: 0 0 12px rgba(0,0,0,.4);
   }
+  /*.black {
+    background: #000000;
+  }
+  .blue {
+    background: #2196f3;
+  }
   .red {
     background: #f44336;
   }
-
   .yellow {
     background: #ffeb3b;
   }
 
   .green {
     background: #8bc34a;
-  }
+  }*/
 
   .back-btn {
     width: 80px;
