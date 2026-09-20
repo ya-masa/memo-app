@@ -1,12 +1,11 @@
 <template>
   <div class="container">
-    <div v-if="message" class="message">
-      {{ message }}
-    </div>
-    <button 
-      class="back-btn" 
+
+    <button
+      class="back-btn"
       @click="cancelEdit"
-    >戻る
+    >
+      戻る
     </button>
 
     <button
@@ -16,201 +15,172 @@
       {{ editingId ? '更新' : '保存' }}
     </button>
 
-    <div class="editor-wrapper">
-      <QuillEditor
-        ref="editor"
-        @ready="onReady"
-        v-model:content="content"
-        contentType="html"
-        theme="snow"
-      />
-    </div>
+    <div
+      ref="editor"
+      class="editor"
+      contenteditable="true"
+    ></div>
+
   </div>
+
   <div class="footer-toolbar">
-    <button 
-      @click="toggleBold" 
-      :class="{ active: isBold === true }"
-      class="bold-btn" >B
+    <button
+      class="tool-btn"
+      @click="toggleBold"
+    >
+      B
     </button>
+
     <button
+      class="color-btn blue"
       @click="toggleBlue"
-      :class="{ active: fontColor === 'blue' }"
-      class="color-btn-f blue"
     ></button>
 
     <button
+      class="color-btn red"
       @click="toggleRed"
-      :class="{ active: fontColor === 'red' }"
-      class="color-btn-f red"
     ></button>
 
     <button
+      class="color-btn yellow"
       @click="toggleYellow"
-      :class="{ active: markerColor === 'yellow' }"
-      class="color-btn-m yellow"
     ></button>
 
     <button
+      class="color-btn green"
       @click="toggleGreen"
-      :class="{ active: markerColor === 'green' }"
-      class="color-btn-m green"
     ></button>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { db } from '../db'
+  import { ref, onMounted } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
+  import { db } from '../db'
 
-const route = useRoute()
-const router = useRouter()
+  const route = useRoute()
+  const router = useRouter()
 
-const content = ref('')
-const editingId = ref(null)
+  const editor = ref(null)
 
-const message = ref('')
+  const editingId = ref(null)
 
-const editor = ref(null)
+  const loadMemo = async () => {
 
-const isBold = ref(false)
-const fontColor = ref('black')
-const markerColor = ref('')
+    const id = Number(route.params.id)
 
-const onReady = (editorInstance) => {
-  console.log('ready', editorInstance)
-  editor.value = editorInstance
-}
+    if (!id) return
 
-const loadMemo = async () => {
-  const id = Number(route.params.id)
+    const memo = await db.memos.get(id)
 
-  if (!id) return
-
-  const memo = await db.memos.get(id)
-
-  if (memo) {
-    editingId.value = memo.id
-    content.value = memo.content
-  }
-}
-
-const saveMemo = async () => {
-  if (!content.value) return
-
-  if (editingId.value) {
-    await db.memos.update(editingId.value, {
-      content: content.value,
-      updatedAt: new Date()
-    })
-
-    message.value = '更新しました'
-  } else {
-    await db.memos.add({
-      content: content.value,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    })
-
-    message.value = '保存しました'
+    if (memo) {
+      editingId.value = memo.id
+      editor.value.innerHTML = memo.content
+    }
   }
 
-  setTimeout(() => {
+  const saveMemo = async () => {
+
+    const content = editor.value.innerHTML
+
+    if (!content.trim()) return
+
+    if (editingId.value) {
+
+      await db.memos.update(
+        editingId.value,
+        {
+          content,
+          updatedAt: new Date()
+        }
+      )
+
+    } else {
+
+      await db.memos.add({
+        content,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+
+    }
+
     router.push('/')
-  }, 1000)
-}
-
-const cancelEdit = () => {
-  if (!confirm('入力内容を破棄して一覧へ戻りますか？')) {
-    return
   }
 
-  router.push('/')
-}
-
-const toggleBold = () => {
-  isBold.value = !isBold.value
-}
-
-const toggleBlue = () => {
-  if (fontColor.value === 'blue') {
-    fontColor.value = 'black'
-  } else {
-    fontColor.value = 'blue'
+  const cancelEdit = () => {
+    router.push('/')
   }
-}
 
-const toggleRed = () => {
-  if (fontColor.value === 'red') {
-    fontColor.value = 'black'
-  } else {
-    fontColor.value = 'red'
+  const toggleBold = () => {
+    document.execCommand('bold')
   }
-}
 
-const toggleYellow = () => {
-  if (markerColor.value === 'yellow') {
-    markerColor.value = ''
-  } else {
-    markerColor.value = 'yellow'
+  const toggleBlue = () => {
+    document.execCommand(
+      'foreColor',
+      false,
+      '#0000ff'
+    )
   }
-}
 
-const toggleGreen = () => {
-  if (markerColor.value === 'green') {
-    markerColor.value = ''
-  } else {
-    markerColor.value = 'green'
+  const toggleRed = () => {
+    document.execCommand(
+      'foreColor',
+      false,
+      '#ff0000'
+    )
   }
-}
 
-onMounted(() => {
-  loadMemo()
-})
+  const toggleYellow = () => {
+    document.execCommand(
+      'hiliteColor',
+      false,
+      '#ffff00'
+    )
+  }
+
+  const toggleGreen = () => {
+    document.execCommand(
+      'hiliteColor',
+      false,
+      '#ccff99'
+    )
+  }
+
+  onMounted(() => {
+    loadMemo()
+  })
 </script>
 
 <style>
   .container {
-    max-width: 90%;
+    max-width: 640px;
     margin: 0 auto;
+    padding: 12px;
+  }
+
+  .editor {
+    min-height: 500px;
+
+    margin-top: 10px;
+
     padding: 16px;
-  }
-  .editor-wrapper {
-    width: 95%;
-    margin: 0 auto;
-  }
-  button {
-    padding: 10px 18px;
-    margin-right: 8px;
-    margin-bottom: 10px;
-  }
-  .back-btn {
-    width: 80px;
-    height: 40px;
-  }
-  .save-btn {
-    width: 120px;
-    height: 50px;
-    font-size: 20px;
-    font-weight: bold;
 
-    background: #2196f3;
-    color: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
 
-    border: none;
-    border-radius: 10px;
-  }
-  .message {
-    background: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #81c784;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+    background: white;
+
+    font-size: 18px;
+    line-height: 1.8;
+
+    outline: none;
   }
 
   .footer-toolbar {
     position: fixed;
+
     bottom: 0;
     left: 0;
     right: 0;
@@ -219,37 +189,26 @@ onMounted(() => {
     justify-content: center;
     gap: 12px;
 
-    padding: 10px;
-
     background: white;
+
     border-top: 1px solid #ddd;
+
+    padding: 10px;
   }
-  .ql-toolbar {
-    display:none;
-  }
-  .bold-btn {
-    width: 40px;
-    height: 40px;
-    font-weight: bold;
-  }
+
   .tool-btn {
     width: 44px;
     height: 44px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: white;
+    font-weight: bold;
   }
 
-  .tool-btn.active {
-    box-shadow: inset 0 0 8px rgba(0,0,0,.3);
-    transform: translateY(2px);
-    border: 2px solid #2196f3;
-  }
   .color-btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
+
     border-radius: 50%;
-    border: 2px solid #ddd;
+
+    border: 2px solid #ccc;
   }
 
   .blue {
@@ -267,33 +226,23 @@ onMounted(() => {
   .green {
     background: #8bc34a;
   }
-  .bold-btn.active {
-    background: #333;
-    color: white;
+
+  .back-btn {
+    width: 80px;
+    height: 40px;
   }
 
-  .blue.active,
-  .red.active,
-  .yellow.active,
-  .green.active {
-    border: 4px solid #000;
-    transform: scale(1.3);
-  }
-  .color-btn-f{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-  }
-  .color-btn-b{
-    width: 32px;
-    height: 32px;
-    border-radius: 10%;
-  }
-  .active {
-    transform: scale(1.25);
-    border: 4px solid #000;
-    box-shadow:
-      0 0 12px rgba(0,0,0,.4),
-      0 0 0 3px #fff;
+  .save-btn {
+    width: 120px;
+    height: 50px;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    background: #2196f3;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
   }
 </style>
