@@ -36,25 +36,41 @@
       class="color-btn blue"
       :class="{ active: fontColor === 'blue' }"
       @click="toggleBlue"
-    ></button>
+      >
+      <span v-if="fontColor === 'blue'">
+        ✔
+      </span>
+    </button>
 
     <button
       class="color-btn red"
       :class="{ active: fontColor === 'red' }"
       @click="toggleRed"
-    ></button>
+    >
+      <span v-if="fontColor === 'red'">
+        ✔
+      </span>
+    </button>
 
     <button
       class="color-btn yellow"
       :class="{ active: markerColor === 'yellow' }"
       @click="toggleYellow"
-    ></button>
+    >
+      <span v-if="markerColor === 'yellow'">
+        ✔
+      </span>
+    </button>
 
     <button
       class="color-btn green"
       :class="{ active: markerColor === 'green' }"
       @click="toggleGreen"
-    ></button>
+    >
+      <span v-if="markerColor === 'green'">
+        ✔
+      </span>
+    </button>
   </div>
 </template>
 
