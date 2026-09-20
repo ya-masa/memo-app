@@ -27,8 +27,10 @@
     </div>
   </div>
   <div class="footer-toolbar">
-    <button @click="toggleBold" class="bold-btn">
-      B
+    <button 
+      @click="toggleBold" 
+      :class="{ active: fontBold === 'bold' }"
+      class="bold-btn" >B
     </button>
     <button
       @click="toggleBlue"
