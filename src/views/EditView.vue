@@ -29,17 +29,15 @@
       :class="{ active: isBold }"
       @click="toggleBold"
     >
-      B
+      {{ isBold === true ? '✓' : '' }}
     </button>
 
     <button
       class="color-btn blue"
       :class="{ active: fontColor === 'blue' }"
       @click="toggleBlue"
-      >
-      <span v-if="fontColor === 'blue'">
-        ✔
-      </span>
+    >
+      {{ fontColor === 'blue' ? '✓' : '' }}
     </button>
 
     <button
@@ -47,9 +45,7 @@
       :class="{ active: fontColor === 'red' }"
       @click="toggleRed"
     >
-      <span v-if="fontColor === 'red'">
-        ✔
-      </span>
+      {{ fontColor === 'red' ? '✓' : '' }}
     </button>
 
     <button
@@ -57,9 +53,7 @@
       :class="{ active: markerColor === 'yellow' }"
       @click="toggleYellow"
     >
-      <span v-if="markerColor === 'yellow'">
-        ✔
-      </span>
+      {{ markerColor === 'yellow' ? '✓' : '' }}
     </button>
 
     <button
@@ -67,9 +61,7 @@
       :class="{ active: markerColor === 'green' }"
       @click="toggleGreen"
     >
-      <span v-if="markerColor === 'green'">
-        ✔
-      </span>
+      {{ markerColor === 'green' ? '✓' : '' }}
     </button>
   </div>
 </template>
@@ -228,13 +220,20 @@
   }
 
   .color-btn {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
 
     border-radius: 50%;
 
-    border: 2px solid #ccc;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
   .tool-btn,
   .color-btn {
     transition: all 0.2s ease;
@@ -242,7 +241,15 @@
   .blue {
     background: #2196f3;
   }
-
+  .color-btn {
+  position: relative;
+  }
+  
+  .active {
+    transform: scale(1.4);
+    border: 4px solid #000;
+    box-shadow: 0 0 12px rgba(0,0,0,.4);
+  }
   .red {
     background: #f44336;
   }
