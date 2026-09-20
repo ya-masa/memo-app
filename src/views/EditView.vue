@@ -25,7 +25,8 @@
 
   <div class="footer-toolbar">
     <button
-      class="tool-btn"
+      class="bold-btn"
+      :class="{ active: isBold }"
       @click="toggleBold"
     >
       B
@@ -33,21 +34,25 @@
 
     <button
       class="color-btn blue"
+      :class="{ active: fontColor === 'blue' }"
       @click="toggleBlue"
     ></button>
 
     <button
       class="color-btn red"
+      :class="{ active: fontColor === 'red' }"
       @click="toggleRed"
     ></button>
 
     <button
       class="color-btn yellow"
+      :class="{ active: markerColor === 'yellow' }"
       @click="toggleYellow"
     ></button>
 
     <button
       class="color-btn green"
+      :class="{ active: markerColor === 'green' }"
       @click="toggleGreen"
     ></button>
   </div>
@@ -64,6 +69,10 @@
   const editor = ref(null)
 
   const editingId = ref(null)
+
+  const isBold = ref(false)
+  const fontColor = ref('')
+  const markerColor = ref('')
 
   const loadMemo = async () => {
 
@@ -210,7 +219,10 @@
 
     border: 2px solid #ccc;
   }
-
+  .tool-btn,
+  .color-btn {
+    transition: all 0.2s ease;
+  }
   .blue {
     background: #2196f3;
   }
@@ -245,4 +257,36 @@
     border: none;
     border-radius: 10px;
   }
+  .active {
+    transform: scale(1.25);
+
+    border: 4px solid #000;
+
+    box-shadow:
+      0 0 15px rgba(0,0,0,.5),
+      inset 0 0 10px rgba(0,0,0,.3);
+
+    filter: brightness(0.9);
+  }
+  .bold-btn.active {
+    background: #222;
+    color: white;
+
+    transform: scale(1.15);
+
+    border: 3px solid #fff;
+
+    box-shadow:
+      0 0 15px rgba(0,0,0,.5);
+  }
+  .color-btn.active {
+    transform: scale(1.4);
+
+    border: 5px solid #000;
+
+    box-shadow:
+      0 0 10px rgba(0,0,0,.3),
+      0 0 20px rgba(0,0,0,.2);
+  }
+
 </style>
