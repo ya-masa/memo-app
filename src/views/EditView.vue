@@ -33,6 +33,13 @@
     </button>
 
     <button
+      class="color-btn black"
+      :class="{ active: fontColor === 'black' }"
+      @click="toggleBlack"
+    >
+      {{ fontColor === 'black' ? '✓' : '' }}
+    </button>
+    <button
       class="color-btn blue"
       :class="{ active: fontColor === 'blue' }"
       @click="toggleBlue"
@@ -132,6 +139,14 @@
   const toggleBold = () => {
     document.execCommand('bold')
   }
+  const toggleBlack = () => {
+    document.execCommand(
+      'foreColor',
+      false,
+      '#000000'
+    )
+  }
+
 
   const toggleBlue = () => {
     document.execCommand(
