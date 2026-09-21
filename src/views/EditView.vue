@@ -203,7 +203,11 @@
 
   const toggleYellow = () => {
     if (markerColor.value === 'yellow') {
-      removeHighlight()
+      document.execCommand(
+        'hiliteColor', 
+        false, 
+        '#ffffff'
+      )
     } else {
       document.execCommand(
         'hiliteColor',
@@ -217,7 +221,11 @@
 
   const toggleGreen = () => {
     if (markerColor.value === 'green') {
-      removeHighlight()
+      document.execCommand(
+        'hiliteColor', 
+        false, 
+        '#ffffff'
+      )
     } else {
       document.execCommand(
         'hiliteColor',
@@ -299,40 +307,6 @@
     }
 
     return ''
-  }
-  const removeHighlight = () => {
-    const selection = window.getSelection()
-    if (!selection.rangeCount) return
-
-    let el = selection.anchorNode
-
-    if (el.nodeType === Node.TEXT_NODE) {
-      el = el.parentElement
-    }
-
-    while (el && el !== editor.value) {
-      if (
-        el.style &&
-        el.style.backgroundColor
-      ) {
-        el.style.backgroundColor = ''
-
-        // style属性が空ならspanも除去
-        if (!el.getAttribute('style')) {
-          const parent = el.parentNode
-
-          while (el.firstChild) {
-            parent.insertBefore(el.firstChild, el)
-          }
-
-          parent.removeChild(el)
-        }
-
-        break
-      }
-
-      el = el.parentElement
-    }
   }
 </script>
 
