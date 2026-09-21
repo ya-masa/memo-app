@@ -265,9 +265,9 @@
     } else {
       markerColor.value = ''
     }
-    console.log("isBold:"+isBold)
-    console.log("fontColor:"+fontColor)
-    console.log("markerColor:"+markerColor)
+    console.log("isBold:",isBold)
+    console.log("fontColor:",fontColor)
+    console.log("markerColor:",markerColor)
   }
 </script>
 
@@ -296,23 +296,24 @@
     outline: none;
   }
 
-  .footer-toolbar {
-    position: fixed;
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
-    bottom: 0;
-    left: 0;
-    right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 
-    display: flex;
-    justify-content: center;
-    gap: 12px;
+  margin: 12px 0;
 
-    background: white;
+  padding: 10px;
 
-    border-top: 1px solid #ddd;
-
-    padding: 10px;
-  }
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
 
   .tool-btn {
     width: 44px;
