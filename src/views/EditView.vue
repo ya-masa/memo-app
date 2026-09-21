@@ -17,7 +17,7 @@
       >
         太字
       </button>
-      <div>
+      <div class="tool-group">
         <span>文字</span>
         <button
           class="color-btn black"
@@ -42,7 +42,7 @@
           🔴赤
         </button>
       </div>
-      <div>
+      <div class="tool-group">
         <span>マーカー</span>
         <button
           class="color-btn yellow"
@@ -368,11 +368,11 @@
     border-color: #555;
   }
 
-  .toolbar dev span {
+  .tool-group span,.toolbar span {
     font-size: var(--label-font-size);
     font-weight: bold;
   }
-  .toolber dev{
+  .tool-group{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
