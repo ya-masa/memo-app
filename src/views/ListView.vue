@@ -477,6 +477,8 @@ onMounted(async () => {
 
     margin: 12px auto;
 
+    min-height: var(--memo-min-height);
+
     padding: var(--memo-padding);
 
     border: 1px solid #ddd;
