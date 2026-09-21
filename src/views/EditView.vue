@@ -445,8 +445,8 @@
   
   .bold-btn,
   .color-btn {
-    width: 55px;
-    height: 55px;
+    width: var(--memo-min-height);
+    height: var(--memo-min-height);
 
     border-radius: 50%;
 
