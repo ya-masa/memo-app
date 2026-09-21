@@ -42,6 +42,7 @@
         v-if="mode === 'delete'"
         class="select-actions"
       >
+      <h3>削除したいメモを選んでから削除を押してください</h3>
         <button
           class="del-btn"
           @click="deleteSelected"
@@ -475,7 +476,8 @@ onMounted(async () => {
     width: 95%;
 
     margin: 12px auto;
-    padding: 16px;
+
+    padding: var(--memo-padding);
 
     border: 1px solid #ddd;
     border-radius: 12px;

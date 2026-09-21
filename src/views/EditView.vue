@@ -68,7 +68,7 @@
       class="save-btn"
       @click="saveMemo"
     >
-      {{ editingId ? '更新' : '保存' }}
+      {{ editingId ? '更新して終わる' : '保存して終わる' }}
     </button>
   </div>
 </template>
