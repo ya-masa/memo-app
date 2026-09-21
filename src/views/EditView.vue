@@ -64,7 +64,7 @@
     <div class="current-format">
       <span>選択中 : </span>
       <span v-if="isBold">
-        B
+        太字
       </span>
       <span
         v-if="fontColor === 'black'"
@@ -165,7 +165,9 @@
   }
 
   const cancelEdit = () => {
-    router.push('/')
+    if (!confirm('変更を破棄して戻りますか？')) {
+      return
+    }router.push('/')
   }
 
   const toggleBold = () => {
@@ -375,7 +377,7 @@
 
     color: black;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
 
     display: flex;
     align-items: center;
