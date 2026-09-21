@@ -496,6 +496,7 @@ onMounted(async () => {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     font-size: var(--memo-font-size);
+    line-height: 1.5;
   }
 
   .memo-date {
