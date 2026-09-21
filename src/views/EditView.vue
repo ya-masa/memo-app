@@ -409,9 +409,9 @@
 
   .save-btn {
     max-width: 500px;
-    width:90%;
+    width:100%;
     height: 70px;
-    margin-left:auto;
+    margin:auto 0;
     margin-top: 20px;
 
     font-size: var(--button-font-size);
