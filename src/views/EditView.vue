@@ -251,12 +251,29 @@
 
     // 背景色
     const hiliteColor = document.queryCommandValue('hiliteColor')
-    console.log("hiliteColor:"+hiliteColor)
+    console.log(editor.value.innerHTML)
     console.log(document.queryCommandSupported('hiliteColor'))
     console.log(document.queryCommandState('styleWithCSS'))
-    console.log(JSON.stringify(hiliteColor))
+    let bgColor = ''
 
-    if (
+    const selection = window.getSelection()
+
+    if (selection.rangeCount > 0) {
+      let el = selection.anchorNode
+
+      if (el.nodeType === Node.TEXT_NODE) {
+        el = el.parentElement
+      }
+      bgColor = getComputedStyle(el).backgroundColor
+    }
+    if (bgColor === 'rgb(255, 255, 0)') {
+      markerColor.value = 'yellow'
+    } else if (bgColor === 'rgb(204, 255, 153)') {
+      markerColor.value = 'green'
+    } else {
+      markerColor.value = 'none'
+    }
+    /*if (
       hiliteColor === '#ffff00' ||
       hiliteColor === 'rgb(255, 255, 0)'
     ) {
@@ -268,7 +285,7 @@
       markerColor.value = 'green'
     } else {
       markerColor.value = 'none'
-    }
+    }*/
   }
 </script>
 
