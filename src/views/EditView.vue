@@ -252,8 +252,8 @@
     // 背景色
     const hiliteColor = document.queryCommandValue('hiliteColor')
     console.log("hiliteColor:"+hiliteColor)
-    console.log(hiliteColor)
-    console.log(typeof hiliteColor)
+    console.log(document.queryCommandSupported('hiliteColor'))
+    console.log(document.queryCommandState('styleWithCSS'))
     console.log(JSON.stringify(hiliteColor))
 
     if (
@@ -269,10 +269,6 @@
     } else {
       markerColor.value = 'none'
     }
-    console.log("isBold:",isBold.value)
-    console.log("foreColor:",foreColor.value)
-    console.log("markerColor:",markerColor.value)
-    console.log("hiliteColor:",hiliteColor)
   }
 </script>
 
