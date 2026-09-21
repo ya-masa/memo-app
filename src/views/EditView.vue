@@ -265,9 +265,10 @@
     } else {
       markerColor.value = ''
     }
-    console.log("isBold:",isBold)
-    console.log("fontColor:",fontColor)
-    console.log("markerColor:",markerColor)
+    console.log("isBold:",isBold.value)
+    console.log("fontColor:",fontColor.value)
+    console.log("markerColor:",markerColor.value)
+    console.log("hiliteColor:",hiliteColor.value)
   }
 </script>
 
