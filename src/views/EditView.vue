@@ -202,20 +202,38 @@
   }
 
   const toggleYellow = () => {
-    document.execCommand(
-      'hiliteColor',
-      false,
-      '#ffff00'
-    )
+    if (markerColor.value === 'yellow') {
+      document.execCommand(
+        'hiliteColor',
+        false,
+        'transparent'
+      )
+    } else {
+      document.execCommand(
+        'hiliteColor',
+        false,
+        '#ffff00'
+      )
+    }
+
     updateToolbarState()
   }
 
   const toggleGreen = () => {
-    document.execCommand(
-      'hiliteColor',
-      false,
-      '#ccff99'
-    )
+    if (markerColor.value === 'green') {
+      document.execCommand(
+        'hiliteColor',
+        false,
+        'transparent'
+      )
+    } else {
+      document.execCommand(
+        'hiliteColor',
+        false,
+        '#ccff99'
+      )
+    }
+
     updateToolbarState()
   }
 
@@ -224,6 +242,10 @@
   })
 
   const updateToolbarState = () => {
+    const selection = window.getSelection()
+
+    console.log(selection.anchorNode)
+    console.log(selection.anchorNode?.parentElement)
     // 太字
     isBold.value = document.queryCommandState('bold')
 
@@ -250,22 +272,8 @@
     }
 
     // 背景色
-    const hiliteColor = document.queryCommandValue('hiliteColor')
-    console.log(editor.value.innerHTML)
-    console.log(document.queryCommandSupported('hiliteColor'))
-    console.log(document.queryCommandState('styleWithCSS'))
-    let bgColor = ''
+    const bgColor = getHighlightColor()
 
-    const selection = window.getSelection()
-
-    if (selection.rangeCount > 0) {
-      let el = selection.anchorNode
-
-      if (el.nodeType === Node.TEXT_NODE) {
-        el = el.parentElement
-      }
-      bgColor = getComputedStyle(el).backgroundColor
-    }
     if (bgColor === 'rgb(255, 255, 0)') {
       markerColor.value = 'yellow'
     } else if (bgColor === 'rgb(204, 255, 153)') {
@@ -273,19 +281,32 @@
     } else {
       markerColor.value = 'none'
     }
-    /*if (
-      hiliteColor === '#ffff00' ||
-      hiliteColor === 'rgb(255, 255, 0)'
-    ) {
-      markerColor.value = 'yellow'
-    } else if (
-      hiliteColor === '#ccff99' ||
-      hiliteColor === 'rgb(204, 255, 153)'
-    ) {
-      markerColor.value = 'green'
-    } else {
-      markerColor.value = 'none'
-    }*/
+  }
+  function getHighlightColor() {
+    const selection = window.getSelection()
+
+    if (!selection.rangeCount) return ''
+
+    let el = selection.anchorNode
+
+    if (el.nodeType === Node.TEXT_NODE) {
+      el = el.parentElement
+    }
+
+    while (el && el !== editor.value) {
+      const bg = getComputedStyle(el).backgroundColor
+
+      if (
+        bg !== 'rgba(0, 0, 0, 0)' &&
+        bg !== 'transparent'
+      ) {
+        return bg
+      }
+
+      el = el.parentElement
+    }
+
+    return ''
   }
 </script>
 
