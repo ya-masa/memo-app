@@ -399,7 +399,7 @@ onMounted(async () => {
   }
 
   .new-btn {
-    width: 220px;
+    width: 200px;
     height: 70px;
 
     background: #4caf50;
