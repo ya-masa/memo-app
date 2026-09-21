@@ -68,7 +68,7 @@
     --date-font-size: 12px;
     --editor-font-size: 14px;
     --label-font-size: 14px;
-    --memo-padding: 10px 5px;
+    --memo-padding: 5px;
     --memo-min-height: 70px;
     --toolbtn-height:33px;
     --toolbtn-font-size:10px;
@@ -80,7 +80,7 @@
     --date-font-size: 14px;
     --editor-font-size: 18px;
     --label-font-size: 18px;
-    --memo-padding: 14px 7px;
+    --memo-padding: 7px;
     --memo-min-height: 90px;
     --toolbtn-height:38px;
     --toolbtn-font-size:14px;
@@ -92,7 +92,7 @@
     --date-font-size: 18px;
     --editor-font-size: 21px;
     --label-font-size: 20px;
-    --memo-padding: 16px 8px;
+    --memo-padding: 8px;
     --memo-min-height: 110px;
     --toolbtn-height:44px;
     --toolbtn-font-size:18px;
@@ -104,7 +104,7 @@
     --date-font-size: 22px;
     --editor-font-size: 26px;
     --label-font-size: 24px;
-    --memo-padding: 22px 11px;
+    --memo-padding: 11px;
     --memo-min-height: 140px;
     --toolbtn-height:54px;
     --toolbtn-font-size:24px;
@@ -116,8 +116,8 @@
     --date-font-size: 28px;
     --editor-font-size: 32px;
     --label-font-size: 30px;
-    --memo-padding: 28px 14px;
+    --memo-padding: 14px;
     --memo-min-height: 180px;
-    --toolbtn-height:64px;
-    --toolbtn-font-size:32px;
+    --toolbtn-height:60px;
+    --toolbtn-font-size:28px;
   }

@@ -370,7 +370,7 @@
   }
 
   .tool-group span,.toolbar span {
-    font-size: var(--label-font-size);
+    font-size: var(--button-font-size);
     font-weight: bold;
     
   }
@@ -389,6 +389,7 @@
   button {
     cursor: pointer;
     transition: all 0.2s ease;
+    font-size: var(--button-font-size);
   }
 
   /* ---------------- */
@@ -401,8 +402,6 @@
 
     border: none;
     border-radius: 10px;
-
-    font-size: var(--button-font-size);
     font-weight: bold;
   }
 
@@ -436,8 +435,8 @@
   /* ---------------- */
 
   .tool-btn {
-    width: 44px;
-    height: 44px;
+    width: ver(--toolbtn-height);
+    height:ver(--toolbtn-height);
 
     font-weight: bold;
   }
@@ -490,9 +489,9 @@
     transform: scale(1.15);
 
     border: 3px solid #ffb74d;
-
     box-shadow:
-      0 0 15px rgba(0,0,0,.5);
+          0 0 15px rgba(0, 0, 0, .5),
+          inset 0 0 10px rgba(0, 0, 0, .3);
   }
 
   .color-btn.active {

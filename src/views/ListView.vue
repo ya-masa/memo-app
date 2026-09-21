@@ -457,7 +457,7 @@ onMounted(async () => {
   }
 
   .select-color label {
-    font-size: var(--memo-font-size);
+    font-size: var(--date-font-size);
     line-height: 2;
   }
 
@@ -527,7 +527,7 @@ onMounted(async () => {
     top: 10px;
     right: 10px;
 
-    font-size: var(--memo-font-size);
+    font-size: var(--button-font-size);
 
     color: #f32121;
 
