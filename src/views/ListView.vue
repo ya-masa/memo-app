@@ -474,28 +474,31 @@ onMounted(async () => {
     position: relative;
 
     width: 95%;
-
     margin: 12px auto;
 
-    min-height: var(--memo-min-height);
-
     padding: var(--memo-padding);
+
+    min-height: var(--memo-min-height);
 
     border: 1px solid #ddd;
     border-radius: 12px;
 
     box-sizing: border-box;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    display: flex;
+
     transition: all .2s;
   }
 
   .memo-preview {
+    flex: 1;
     overflow: hidden;
-
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-
     font-size: var(--memo-font-size);
   }
 
