@@ -447,7 +447,7 @@
     color: black;
 
     font-weight: bold;
-    font-size: 16px;
+    font-size: var(--button-font-size);
 
     display: flex;
     align-items: center;
