@@ -268,7 +268,7 @@
     console.log("isBold:",isBold.value)
     console.log("fontColor:",fontColor.value)
     console.log("markerColor:",markerColor.value)
-    console.log("hiliteColor:",hiliteColor.value)
+    console.log("hiliteColor:",hiliteColor)
   }
 </script>
 
