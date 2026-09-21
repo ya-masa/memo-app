@@ -445,15 +445,15 @@
   
   .bold-btn,
   .color-btn {
-    width: var(--memo-min-height);
-    height: var(--memo-min-height);
+    width: ver(--toolbtn-height);
+    height:ver(--toolbtn-height) ;
 
     border-radius: 50%;
 
     color: black;
 
     font-weight: bold;
-    font-size: var(--button-font-size);
+    font-size:ver(--toolbtn-font-size);
 
     display: flex;
     align-items: center;
