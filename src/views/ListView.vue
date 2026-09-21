@@ -1,16 +1,15 @@
 <template>
   <div class="header">
-    <button 
-        class="menu-button" 
-        @click="toggleMenu"
-      >⋮</button>
-
     <div v-if="showMenu" class="menu">
       <button 
         @click="startSelectMode"
       >選択削除
       </button>
     </div>
+    <button 
+        class="menu-button" 
+        @click="toggleMenu"
+      >メニュー</button>
   </div>
   <div class="container">
     <div

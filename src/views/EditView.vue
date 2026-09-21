@@ -265,6 +265,9 @@
     } else {
       markerColor.value = ''
     }
+    console.log("markerColor:"+sibold)
+    console.log("fontColor:"+fontColor)
+    console.log("markerColor:"+markerColor)
   }
 </script>
 
