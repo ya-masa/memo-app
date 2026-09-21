@@ -203,12 +203,13 @@
     line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    font-size: 21px;
   }
 
   .memo-date {
     text-align: right;
     color: #888;
-    font-size: 12px;
+    font-size: 18px;
   }
 
   .actions {
@@ -232,7 +233,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 20px;
+    font-size: 21px;
     color: #2196f3;
   }
 

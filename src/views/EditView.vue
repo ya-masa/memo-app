@@ -53,7 +53,7 @@
         :class="{ active: isBold }"
         @click="toggleBold"
       >
-        {{ isBold === true ? '✓' : '' }}
+        B{{ isBold === true ? '✓' : '' }}
       </button>
 
       <button
