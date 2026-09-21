@@ -485,11 +485,7 @@ onMounted(async () => {
 
     box-sizing: border-box;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    display: flex;
-
+    line-height: 1.5;
     transition: all .2s;
   }
 
