@@ -19,23 +19,55 @@
       </button>
     </div>
 
-    <div
-      v-if="showMenu"
-      class="menu"
-    >
-      <button @click="mode = 'delete'">
-        選択削除
-      </button>
+<div
+  v-if="showMenu"
+  class="menu"
+>
+  <button @click="mode = 'delete'">
+    選択削除
+  </button>
 
-      <button @click="mode = 'color'">
-        カラー選択
-      </button>
+  <button @click="mode = 'color'">
+    カラー：{{ theme === 'light' ? 'ライト' : 'ダーク' }}
+  </button>
 
-      <button @click="mode = 'fontsize'">
-        文字サイズ選択
-      </button>
-    </div>
+  <button @click="mode = 'fontsize'">
+    文字サイズ：{{ fontSizeLabel }}
+  </button>
 
+  <!-- カラー -->
+  <div
+    v-if="mode === 'color'"
+    class="select-color"
+  >
+    <select v-model="theme">
+      <option value="light">カラーモード：ライトモード</option>
+      <option value="dark">カラーモード：ダークモード</option>
+    </select>
+
+    <button @click="mode = ''">
+      閉じる
+    </button>
+  </div>
+
+  <!-- フォントサイズ -->
+  <div
+    v-if="mode === 'fontsize'"
+    class="select-color"
+  >
+    <select v-model="fontSize">
+      <option value="xs">フォントカラー：極小</option>
+      <option value="sm">フォントカラー：小</option>
+      <option value="md">フォントカラー：標準</option>
+      <option value="lg">フォントカラー：大</option>
+      <option value="xl">フォントカラー：特大</option>
+    </select>
+
+    <button @click="mode = ''">
+      閉じる
+    </button>
+  </div>
+</div>
     <!-- 削除 -->
     <div class="del-container">
       <div
@@ -53,129 +85,6 @@
         <br><br>
 
         <button @click="mode = ''">
-          キャンセル
-        </button>
-      </div>
-    </div>
-
-    <br><br>
-
-    <!-- カラー -->
-    <div class="color-container">
-      <div
-        v-if="mode === 'color'"
-        class="select-color"
-      >
-        <h3>モード</h3>
-
-        <label>
-          <input
-            type="radio"
-            v-model="theme"
-            value="light"
-          >
-          ライトモード
-        </label>
-
-        <br>
-
-        <label>
-          <input
-            type="radio"
-            v-model="theme"
-            value="dark"
-          >
-          ダークモード
-        </label>
-
-        <br><br>
-
-        <button
-          class="ok-btn"
-          @click="colorSelected"
-        >
-          決定
-        </button>
-
-        <br><br>
-
-        <button
-          class="cancel-btn"
-          @click="mode = ''"
-        >
-          キャンセル
-        </button>
-      </div>
-    </div>
-
-    <!-- フォントサイズ -->
-    <div class="fontsize-container">
-      <div
-        v-if="mode === 'fontsize'"
-        class="select-color"
-      >
-        <h3>文字サイズ</h3>
-
-        <label>
-          <input
-            type="radio"
-            v-model="fontSize"
-            value="xs"
-          >
-          極小
-        </label><br>
-
-        <label>
-          <input
-            type="radio"
-            v-model="fontSize"
-            value="sm"
-          >
-          小
-        </label><br>
-
-        <label>
-          <input
-            type="radio"
-            v-model="fontSize"
-            value="md"
-          >
-          標準
-        </label><br>
-
-        <label>
-          <input
-            type="radio"
-            v-model="fontSize"
-            value="lg"
-          >
-          大
-        </label><br>
-
-        <label>
-          <input
-            type="radio"
-            v-model="fontSize"
-            value="xl"
-          >
-          特大
-        </label>
-
-        <br><br>
-
-        <button
-          class="ok-btn"
-          @click="fontsizeSelected"
-        >
-          決定
-        </button>
-
-        <br><br>
-
-        <button
-          class="cancel-btn"
-          @click="mode = ''"
-        >
           キャンセル
         </button>
       </div>
