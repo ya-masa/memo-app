@@ -62,7 +62,7 @@
       </button>
     </div>
     <div class="current-format">
-      <span>選択中</span>
+      <span>選択中 : </span>
       <span v-if="isBold">
         B
       </span>
@@ -316,11 +316,11 @@
     padding: 12px;
   }
   .current-format{
-    
     padding: 12px;
   }
   .current-format span{
     font-size: 20px;
+    font-weight: bold;
   }
   .editor {
     min-height: 500px;
@@ -394,13 +394,15 @@
     height: 70px;
     border-radius: 10px;
     border: none;
+    font-size: 26px;
+    font-weight: bold;
   }
 
   .save-btn {
     width: 170px;
     height: 70px;
 
-    font-size: 20px;
+    font-size: 26px;
     font-weight: bold;
 
     background: #2196f3;
