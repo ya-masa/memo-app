@@ -157,13 +157,16 @@
   .menu-button {
     border: none;
     background: none;
-    font-size: 24px;
+    font-size: 26px;
+    font-weight: bold;
     cursor: pointer;
   }
   button {
     padding: 10px 18px;
     margin: 5px;
-    height: 70px;
+    height: 40px;
+    font-size: 26px;
+    font-weight: bold;
     border-radius: 20px;
   }
   .new-btn {

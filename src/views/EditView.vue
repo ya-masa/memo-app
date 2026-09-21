@@ -20,7 +20,7 @@
         :class="{ active: isBold }"
         @click="toggleBold"
       >
-        B
+        太字
       </button>
 
       <button
@@ -391,11 +391,10 @@
 
   .back-btn {
     width: 80px;
-    height: 70px;
+    height: 50px;
     border-radius: 10px;
     border: none;
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 22px;
   }
 
   .save-btn {
