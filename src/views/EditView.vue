@@ -47,7 +47,7 @@
         🟩
       </span>
     </div>
-    <div class="footer-toolbar">
+    <div class="toolbar">
       <button
         class="bold-btn"
         :class="{ active: isBold }"
@@ -222,7 +222,7 @@
   onMounted(() => {
     loadMemo()
   })
-
+  
   const updateToolbarState = () => {
     // 太字
     isBold.value = document.queryCommandState('bold')
