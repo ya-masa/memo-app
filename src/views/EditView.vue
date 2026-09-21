@@ -1,18 +1,13 @@
 <template>
-  <div class="container">
-
+  <div
+    class="edit-container"
+    :class="[themeClass, fontSizeClass]"
+  >
     <button
       class="back-btn"
       @click="cancelEdit"
     >
       戻る
-    </button>
-
-    <button
-      class="save-btn"
-      @click="saveMemo"
-    >
-      {{ editingId ? '更新' : '保存' }}
     </button>
     <div class="toolbar">
       <button
@@ -22,20 +17,20 @@
       >
         太字
       </button>
-
+      <span>文字の色</span>
       <button
         class="color-btn black"
         :class="{ active: fontColor === 'black' }"
         @click="toggleBlack"
       >
-        ⚫
+        ⚫黒
       </button>
       <button
         class="color-btn blue"
         :class="{ active: fontColor === 'blue' }"
         @click="toggleBlue"
       >
-        🔵
+        🔵青
       </button>
 
       <button
@@ -43,22 +38,22 @@
         :class="{ active: fontColor === 'red' }"
         @click="toggleRed"
       >
-        🔴
+        🔴赤
       </button>
-
+      <span>マーカー</span>
       <button
         class="color-btn yellow"
         :class="{ active: markerColor === 'yellow' }"
         @click="toggleYellow"
       >
-      🟨 
+        🟨黄
       </button>
 
       <button
         class="color-btn green"
         :class="{ active: markerColor === 'green' }"
         @click="toggleGreen"
-      >🟩
+      >🟩緑
       </button>
     </div>
     <div class="current-format">
@@ -102,6 +97,12 @@
       @mouseup="updateToolbarState"
       @focus="updateToolbarState"
     ></div>
+      <button
+      class="save-btn"
+      @click="saveMemo"
+    >
+      {{ editingId ? '更新' : '保存' }}
+    </button>
   </div>
 </template>
 
@@ -109,7 +110,12 @@
   import { ref, onMounted } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { db } from '../db'
+  import { useSettings } from '../composables/useSettings'
 
+  const {
+    themeClass,
+    fontSizeClass
+  } = useSettings()
   const route = useRoute()
   const router = useRouter()
 
@@ -311,24 +317,39 @@
   }
 </script>
 
-<style>
-  .container {
+<style scoped>
+
+  /* ---------------- */
+  /* コンテナ          */
+  /* ---------------- */
+
+  .edit-container {
     max-width: 640px;
     margin: 0 auto;
     padding: 12px;
+    min-height: 100vh;
   }
-  .current-format{
+  /* ---------------- */
+  /* 現在の書式表示    */
+  /* ---------------- */
+
+  .current-format {
     padding: 12px;
   }
-  .current-format span{
-    font-size: 20px;
+
+  .current-format span {
+    font-size: var(--label-font-size);
     font-weight: bold;
   }
+
+  /* ---------------- */
+  /* 編集エリア        */
+  /* ---------------- */
+
   .editor {
     min-height: 500px;
 
     margin-top: 10px;
-
     padding: 16px;
 
     border: 1px solid #ddd;
@@ -336,11 +357,21 @@
 
     background: white;
 
-    font-size: 21px;
+    font-size: var(--editor-font-size);
     line-height: 1.8;
 
     outline: none;
   }
+
+  .dark .editor {
+    background: #222;
+    color: #fff;
+    border-color: #555;
+  }
+
+  /* ---------------- */
+  /* ツールバー        */
+  /* ---------------- */
 
   .toolbar {
     position: sticky;
@@ -350,60 +381,62 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
     gap: 12px;
 
     margin: 12px 0;
-
     padding: 10px;
 
-    background: white;
+    background: inherit;
+
     border: 1px solid #ddd;
     border-radius: 10px;
   }
-  .current-format{
-    border-radius: 8%;
-    border-color:#000;
+
+  .dark .toolbar {
+    border-color: #555;
   }
-  .tool-btn {
-    width: 44px;
-    height: 44px;
+
+  .toolbar span {
+    font-size: var(--label-font-size);
     font-weight: bold;
   }
 
-  .bold-btn,.color-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  /* ---------------- */
+  /* 汎用ボタン        */
+  /* ---------------- */
 
-    color: black;
-    font-weight: bold;
-    font-size: 16px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .tool-btn,
-  .color-btn {
+  button {
+    cursor: pointer;
     transition: all 0.2s ease;
   }
-  .color-btn {
-  position: relative;
-  }
+
+  /* ---------------- */
+  /* 戻るボタン        */
+  /* ---------------- */
 
   .back-btn {
-    width: 80px;
-    height: 50px;
-    border-radius: 10px;
+    width: 100px;
+    height: 55px;
+
     border: none;
-    font-size: 22px;
+    border-radius: 10px;
+
+    font-size: var(--button-font-size);
+    font-weight: bold;
   }
+
+  /* ---------------- */
+  /* 保存ボタン        */
+  /* ---------------- */
 
   .save-btn {
     width: 170px;
     height: 70px;
 
-    font-size: 26px;
+    margin-top: 20px;
+
+    font-size: var(--button-font-size);
     font-weight: bold;
 
     background: #2196f3;
@@ -412,17 +445,63 @@
     border: none;
     border-radius: 10px;
   }
+
+  .save-btn:hover {
+    filter: brightness(1.05);
+  }
+
+  /* ---------------- */
+  /* ツールボタン      */
+  /* ---------------- */
+
+  .tool-btn {
+    width: 44px;
+    height: 44px;
+
+    font-weight: bold;
+  }
+
+  /* ---------------- */
+  /* 色選択ボタン      */
+  /* ---------------- */
+
+  .bold-btn,
+  .color-btn {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    color: black;
+
+    font-weight: bold;
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .color-btn {
+    position: relative;
+  }
+
+  /* ---------------- */
+  /* 選択状態          */
+  /* ---------------- */
+
   .active {
     transform: scale(1.25);
 
     border: 4px solid #000;
 
     box-shadow:
-      0 0 15px rgba(0,0,0,.5),
-      inset 0 0 10px rgba(0,0,0,.3);
+      0 0 15px rgba(0, 0, 0, .5),
+      inset 0 0 10px rgba(0, 0, 0, .3);
 
-    filter: brightness(0.9);
+    filter: brightness(.9);
   }
+
   .bold-btn.active {
     background: #222;
     color: white;
@@ -434,13 +513,34 @@
     box-shadow:
       0 0 15px rgba(0,0,0,.5);
   }
+
   .color-btn.active {
     transform: scale(1.4);
-    background:  #ffd180;
+
+    background: #ffd180;
+
     border: 2px solid #ffb74d;
+
     box-shadow:
       0 0 10px rgba(0,0,0,.3),
       0 0 20px rgba(0,0,0,.2);
+  }
+
+  /* ---------------- */
+  /* ダークモード補助  */
+  /* ---------------- */
+
+  .dark .back-btn {
+    background: #333;
+    color: white;
+  }
+
+  .dark .save-btn {
+    background: #1976d2;
+  }
+
+  .dark .current-format {
+    color: #f3f4f6;
   }
 
 </style>

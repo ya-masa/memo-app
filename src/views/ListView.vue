@@ -1,54 +1,209 @@
 <template>
-  <div class="header">
-    <button
-      class="new-btn"
-      @click="newMemo"
+  <div
+    class="container"
+    :class="[themeClass, fontSizeClass]"
     >
-      新規作成
-    </button>
-    <button 
-        class="menu-button" 
-        @click="toggleMenu"
-      >メニュー</button>
-  </div>
-  <div v-if="showMenu" class="menu">
-    <button 
-      @click="startSelectMode"
-    >選択削除
-    </button>
-  </div>
-  <div class="container">
-    <div
-      v-if="selectMode"
-      class="select-actions"
-    >
-      <button class="del-btn" @click="deleteSelected">
-        削除
+    <div class="header">
+      <button
+        class="new-btn"
+        @click="newMemo"
+      >
+        新規作成
       </button>
 
-      <button @click="cancelSelect">
-        キャンセル
+      <button
+        class="menu-button"
+        @click="toggleMenu"
+      >
+        メニュー
       </button>
     </div>
+
+    <div
+      v-if="showMenu"
+      class="menu"
+    >
+      <button @click="mode = 'delete'">
+        選択削除
+      </button>
+
+      <button @click="mode = 'color'">
+        カラー選択
+      </button>
+
+      <button @click="mode = 'fontsize'">
+        文字サイズ選択
+      </button>
+    </div>
+
+    <!-- 削除 -->
+    <div class="del-container">
+      <div
+        v-if="mode === 'delete'"
+        class="select-actions"
+      >
+        <button
+          class="del-btn"
+          @click="deleteSelected"
+        >
+          削除
+        </button>
+
+        <br><br>
+
+        <button @click="mode = ''">
+          キャンセル
+        </button>
+      </div>
+    </div>
+
+    <br><br>
+
+    <!-- カラー -->
+    <div class="color-container">
+      <div
+        v-if="mode === 'color'"
+        class="select-color"
+      >
+        <h3>モード</h3>
+
+        <label>
+          <input
+            type="radio"
+            v-model="theme"
+            value="light"
+          >
+          ライトモード
+        </label>
+
+        <br>
+
+        <label>
+          <input
+            type="radio"
+            v-model="theme"
+            value="dark"
+          >
+          ダークモード
+        </label>
+
+        <br><br>
+
+        <button
+          class="ok-btn"
+          @click="colorSelected"
+        >
+          決定
+        </button>
+
+        <br><br>
+
+        <button
+          class="cancel-btn"
+          @click="mode = ''"
+        >
+          キャンセル
+        </button>
+      </div>
+    </div>
+
+    <!-- フォントサイズ -->
+    <div class="fontsize-container">
+      <div
+        v-if="mode === 'fontsize'"
+        class="select-color"
+      >
+        <h3>文字サイズ</h3>
+
+        <label>
+          <input
+            type="radio"
+            v-model="fontSize"
+            value="xs"
+          >
+          極小
+        </label><br>
+
+        <label>
+          <input
+            type="radio"
+            v-model="fontSize"
+            value="sm"
+          >
+          小
+        </label><br>
+
+        <label>
+          <input
+            type="radio"
+            v-model="fontSize"
+            value="md"
+          >
+          標準
+        </label><br>
+
+        <label>
+          <input
+            type="radio"
+            v-model="fontSize"
+            value="lg"
+          >
+          大
+        </label><br>
+
+        <label>
+          <input
+            type="radio"
+            v-model="fontSize"
+            value="xl"
+          >
+          特大
+        </label>
+
+        <br><br>
+
+        <button
+          class="ok-btn"
+          @click="fontsizeSelected"
+        >
+          決定
+        </button>
+
+        <br><br>
+
+        <button
+          class="cancel-btn"
+          @click="mode = ''"
+        >
+          キャンセル
+        </button>
+      </div>
+    </div>
+
+    <!-- メモ一覧 -->
     <div
       v-for="memo in memos"
       :key="memo.id"
       class="memo"
       :class="{ selected: selectedIds.includes(memo.id) }"
-      @click="selectMode && toggleSelect(memo.id)"
+      @click="mode === 'delete' && toggleSelect(memo.id)"
     >
       <span
-        v-if="selectMode"
+        v-if="mode === 'delete'"
         class="checkmark"
       >
         {{ selectedIds.includes(memo.id) ? '✓' : '' }}
       </span>
 
+      <br><br>
+
       <div
         class="memo-preview"
         v-html="memo.content"
-        @click.stop="!selectMode && editMemo(memo)"
+        @click.stop="mode !== 'delete' && editMemo(memo)"
       ></div>
+
+      <br><br>
 
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
@@ -58,203 +213,336 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
-  import '@vueup/vue-quill/dist/vue-quill.snow.css'
-  import { useRouter } from 'vue-router'
-  import { db } from '../db'
+import { ref, onMounted } from 'vue'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
+import { useRouter } from 'vue-router'
+import { db } from '../db'
+import { useSettings } from '../composables/useSettings'
 
-  const memos = ref([])
-  const selectMode = ref(false)
-  const selectedIds = ref([])
-  const showMenu = ref(false)
+const {
+  theme,
+  fontSize,
+  themeClass,
+  fontSizeClass,
+  setTheme,
+  setFontSize
+} = useSettings()
 
-  const toggleMenu = () => {
-    showMenu.value = !showMenu.value
-  }
+const memos = ref([])
+const selectedIds = ref([])
+const showMenu = ref(false)
 
-  const startSelectMode = () => {
-    selectMode.value = true
-    showMenu.value = false
-  }
-  const toggleSelect = (id) => {
-    const index = selectedIds.value.indexOf(id)
+const mode = ref('')
 
-    if (index === -1) {
-      selectedIds.value.push(id)
-    } else {
-      selectedIds.value.splice(index, 1)
-    }
-  }
-  const loadMemos = async () => {
-    memos.value = await db.memos
-      .orderBy('createdAt')
-      .reverse()
-      .toArray()
-  }
-  const router = useRouter()
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value
+}
 
-  const newMemo = () => {
-    router.push('/edit')
-  }
-  
-  const editMemo = (memo) => {
-    router.push(`/edit/${memo.id}`)
-  }
+/* 削除モード */
 
-  const formatDate = (date) => {
-    return new Date(date).toLocaleString('ja-JP', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-  }
+const delSelectMode = () => {
+  mode.value = 'delete'
+  showMenu.value = false
+}
 
-  onMounted(async () => {
-    await loadMemos()
+/* カラーモード */
+
+const colorSelectMode = () => {
+  mode.value = 'color'
+  showMenu.value = false
+}
+
+/* 文字サイズモード */
+
+const fontsizeSelectMode = () => {
+  mode.value = 'fontsize'
+  showMenu.value = false
+}
+
+/* 選択処理 */
+
+const toggleSelect = (id) => {
+  const index = selectedIds.value.indexOf(id)
+
+  if (index === -1) {
+    selectedIds.value.push(id)
+  } else {
+    selectedIds.value.splice(index, 1)
+  }
+}
+
+/* メモ読込 */
+
+const loadMemos = async () => {
+  memos.value = await db.memos
+    .orderBy('createdAt')
+    .reverse()
+    .toArray()
+}
+
+/* ルーター */
+
+const router = useRouter()
+
+const newMemo = () => {
+  router.push('/edit')
+}
+
+const editMemo = (memo) => {
+  router.push(`/edit/${memo.id}`)
+}
+
+/* 日付表示 */
+
+const formatDate = (date) => {
+  return new Date(date).toLocaleString('ja-JP', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
   })
-  const deleteSelected = async () => {
+}
 
-    if (!selectedIds.value.length) return
+/* 削除 */
 
-    if (!confirm('選択したメモを削除しますか？')) {
-      return
-    }
+const deleteSelected = async () => {
+  if (!selectedIds.value.length) return
 
-    for (const id of selectedIds.value) {
-      await db.memos.delete(id)
-    }
-
-    selectedIds.value = []
-    selectMode.value = false
-
-    await loadMemos()
+  if (!confirm('選択したメモを削除しますか？')) {
+    return
   }
-  const cancelSelect = () => {
-    selectedIds.value = []
-    selectMode.value = false
+
+  for (const id of selectedIds.value) {
+    await db.memos.delete(id)
   }
+
+  selectedIds.value = []
+  mode.value = ''
+
+  await loadMemos()
+}
+
+/* キャンセル */
+
+const cancelSelect = () => {
+  selectedIds.value = []
+  mode.value = ''
+}
+
+/* テーマ保存 */
+
+const colorSelected = () => {
+  setTheme(theme.value)
+  mode.value = ''
+}
+
+/* フォントサイズ保存 */
+
+const fontsizeSelected = () => {
+  setFontSize(fontSize.value)
+  mode.value = ''
+}
+
+onMounted(async () => {
+  await loadMemos()
+})
 </script>
 
-<style>
+
+<style scoped>
+
   .container {
     max-width: 640px;
     margin: 0 auto;
     padding: 12px;
+    min-height: 100vh;
   }
+
+
+  /* ---------------- */
+  /* ヘッダー          */
+  /* ---------------- */
 
   .header {
     display: flex;
     justify-content: flex-end;
+
     position: sticky;
     top: 0;
-    background: white;
+
     padding: 8px;
+
+    background: inherit;
+
     z-index: 100;
   }
 
-  .menu-button {
-    border: none;
-    background: none;
-    font-size: 26px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+  /* ---------------- */
+  /* ボタン            */
+  /* ---------------- */
+
   button {
     padding: 10px 18px;
     margin: 5px;
-    height: 40px;
-    font-size: 26px;
+
+    min-height: 50px;
+
+    font-size: var(--button-font-size);
     font-weight: bold;
+
     border-radius: 20px;
+
+    cursor: pointer;
   }
+
   .new-btn {
     width: 220px;
     height: 70px;
 
-    font-size: 26px;
-    font-weight: bold;
-
-    border-radius: 20px;
-
     background: #4caf50;
     color: white;
-
     border: none;
 
     display: block;
     margin: 30px auto;
 
-    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
   }
-  .menu{
-    margin-left: auto;
-    text-align: right;
+
+  .menu-button {
+    border: none;
+    background: none;
   }
-  .del-btn{
-    width: 130px;
+
+  .del-btn {
+    width: 140px;
     height: 70px;
-
-    font-size: 26px;
-    font-weight: bold;
-
-    border-radius: 20px;
 
     background: #fb6565;
     color: white;
   }
-  .memo {
+
+  /* ---------------- */
+  /* メニュー          */
+  /* ---------------- */
+
+  .menu {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+
+  /* ---------------- */
+  /* モード画面        */
+  /* ---------------- */
+
+  .select-actions,
+  .select-color {
     width: 95%;
+
+    margin: 15px auto;
+    padding: 20px;
+
+    border: 1px solid #ddd;
+    border-radius: 15px;
+
+    box-sizing: border-box;
+  }
+
+  .dark .select-actions,
+  .dark .select-color {
+    border-color: #555;
+  }
+
+  .select-color label {
+    font-size: var(--memo-font-size);
+    line-height: 2;
+  }
+
+  .select-color input[type="radio"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+  }
+
+  /* ---------------- */
+  /* メモ一覧          */
+  /* ---------------- */
+
+  .memo {
+    position: relative;
+
+    width: 95%;
+
     margin: 12px auto;
+    padding: 16px;
 
     border: 1px solid #ddd;
     border-radius: 12px;
 
-    padding: 16px;
     box-sizing: border-box;
+
+    transition: all .2s;
   }
+
   .memo-preview {
     overflow: hidden;
+
     display: -webkit-box;
-    line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    font-size: 21px;
+
+    font-size: var(--memo-font-size);
   }
 
   .memo-date {
     text-align: right;
+
     color: #888;
-    font-size: 18px;
+
+    font-size: var(--date-font-size);
   }
 
-  .actions {
-    margin-top: 10px;
-  }
-  .clickable {
-    cursor: pointer;
-  }
+  /* ---------------- */
+  /* 削除選択状態      */
+  /* ---------------- */
 
-  .clickable:hover {
-    background-color: #f5f5f5;
-  }
   .selected {
     border: 4px solid #fb86b7;
+
     background: #fbbbca;
+
     transform: scale(1.03);
+
     box-shadow: 0 0 15px rgba(243, 33, 103, 0.6);
   }
 
   .checkmark {
     position: absolute;
+
     top: 10px;
     right: 10px;
-    font-size: 21px;
+
+    font-size: var(--memo-font-size);
+
     color: #f32121;
+
+    font-weight: bold;
   }
 
-  .memo {
-    position: relative;
+  /* ---------------- */
+  /* ホバー            */
+  /* ---------------- */
+
+  .clickable {
+    cursor: pointer;
   }
+
+  .clickable:hover {
+    background: #f5f5f5;
+  }
+
+  .dark .clickable:hover {
+    background: #2a2d35;
+  }
+
 </style>
