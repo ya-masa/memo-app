@@ -251,6 +251,7 @@
 
     // 背景色
     const hiliteColor = document.queryCommandValue('hiliteColor')
+    console.log("hiliteColor:"+hiliteColor)
 
     if (
       hiliteColor === '#ffff00' ||
@@ -263,7 +264,7 @@
     ) {
       markerColor.value = 'green'
     } else {
-      markerColor.value = ''
+      markerColor.value = 'none'
     }
     console.log("isBold:",isBold.value)
     console.log("foreColor:",foreColor.value)
