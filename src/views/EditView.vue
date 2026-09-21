@@ -47,61 +47,62 @@
         🟩
       </span>
     </div>
+    <div class="footer-toolbar">
+      <button
+        class="bold-btn"
+        :class="{ active: isBold }"
+        @click="toggleBold"
+      >
+        {{ isBold === true ? '✓' : '' }}
+      </button>
+
+      <button
+        class="color-btn black"
+        :class="{ active: fontColor === 'black' }"
+        @click="toggleBlack"
+      >
+        ⚫{{ fontColor === 'black' ? '✓' : '' }}
+      </button>
+      <button
+        class="color-btn blue"
+        :class="{ active: fontColor === 'blue' }"
+        @click="toggleBlue"
+      >
+        🔵{{ fontColor === 'blue' ? '✓' : '' }}
+      </button>
+
+      <button
+        class="color-btn red"
+        :class="{ active: fontColor === 'red' }"
+        @click="toggleRed"
+      >
+        🔴{{ fontColor === 'red' ? '✓' : '' }}
+      </button>
+
+      <button
+        class="color-btn yellow"
+        :class="{ active: markerColor === 'yellow' }"
+        @click="toggleYellow"
+      >
+      🟨 {{ markerColor === 'yellow' ? '✓' : '' }}
+      </button>
+
+      <button
+        class="color-btn green"
+        :class="{ active: markerColor === 'green' }"
+        @click="toggleGreen"
+      >🟩
+        {{ markerColor === 'green' ? '✓' : '' }}
+      </button>
+    </div>
     <div
       ref="editor"
       class="editor"
       contenteditable="true"
+      @keyup="updateToolbarState"
+      @mouseup="updateToolbarState"
+      @focus="updateToolbarState"
     ></div>
-
-  </div>
-
-  <div class="footer-toolbar">
-    <button
-      class="bold-btn"
-      :class="{ active: isBold }"
-      @click="toggleBold"
-    >
-      {{ isBold === true ? '✓' : '' }}
-    </button>
-
-    <button
-      class="color-btn black"
-      :class="{ active: fontColor === 'black' }"
-      @click="toggleBlack"
-    >
-      ⚫{{ fontColor === 'black' ? '✓' : '' }}
-    </button>
-    <button
-      class="color-btn blue"
-      :class="{ active: fontColor === 'blue' }"
-      @click="toggleBlue"
-    >
-      🔵{{ fontColor === 'blue' ? '✓' : '' }}
-    </button>
-
-    <button
-      class="color-btn red"
-      :class="{ active: fontColor === 'red' }"
-      @click="toggleRed"
-    >
-      🔴{{ fontColor === 'red' ? '✓' : '' }}
-    </button>
-
-    <button
-      class="color-btn yellow"
-      :class="{ active: markerColor === 'yellow' }"
-      @click="toggleYellow"
-    >
-     🟨 {{ markerColor === 'yellow' ? '✓' : '' }}
-    </button>
-
-    <button
-      class="color-btn green"
-      :class="{ active: markerColor === 'green' }"
-      @click="toggleGreen"
-    >🟩
-      {{ markerColor === 'green' ? '✓' : '' }}
-    </button>
   </div>
 </template>
 
@@ -170,6 +171,7 @@
 
   const toggleBold = () => {
     document.execCommand('bold')
+    updateToolbarState()
   }
   const toggleBlack = () => {
     document.execCommand(
@@ -177,6 +179,7 @@
       false,
       '#000000'
     )
+    updateToolbarState()
   }
 
 
@@ -186,6 +189,7 @@
       false,
       '#0000ff'
     )
+    updateToolbarState()
   }
 
   const toggleRed = () => {
@@ -194,6 +198,7 @@
       false,
       '#ff0000'
     )
+    updateToolbarState()
   }
 
   const toggleYellow = () => {
@@ -202,6 +207,7 @@
       false,
       '#ffff00'
     )
+    updateToolbarState()
   }
 
   const toggleGreen = () => {
@@ -210,11 +216,56 @@
       false,
       '#ccff99'
     )
+    updateToolbarState()
   }
 
   onMounted(() => {
     loadMemo()
   })
+
+  const updateToolbarState = () => {
+    // 太字
+    isBold.value = document.queryCommandState('bold')
+
+    // 文字色
+    const foreColor = document.queryCommandValue('foreColor')
+
+    if (
+      foreColor === '#ff0000' ||
+      foreColor === 'rgb(255, 0, 0)'
+    ) {
+      fontColor.value = 'red'
+    } else if (
+      foreColor === '#0000ff' ||
+      foreColor === 'rgb(0, 0, 255)'
+    ) {
+      fontColor.value = 'blue'
+    } else if (
+      foreColor === '#000000' ||
+      foreColor === 'rgb(0, 0, 0)'
+    ) {
+      fontColor.value = 'black'
+    } else {
+      fontColor.value = ''
+    }
+
+    // 背景色
+    const hiliteColor = document.queryCommandValue('hiliteColor')
+
+    if (
+      hiliteColor === '#ffff00' ||
+      hiliteColor === 'rgb(255, 255, 0)'
+    ) {
+      markerColor.value = 'yellow'
+    } else if (
+      hiliteColor === '#ccff99' ||
+      hiliteColor === 'rgb(204, 255, 153)'
+    ) {
+      markerColor.value = 'green'
+    } else {
+      markerColor.value = ''
+    }
+  }
 </script>
 
 <style>
