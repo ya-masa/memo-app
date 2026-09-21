@@ -14,8 +14,55 @@
     >
       {{ editingId ? '更新' : '保存' }}
     </button>
-    
+    <div class="toolbar">
+      <button
+        class="bold-btn"
+        :class="{ active: isBold }"
+        @click="toggleBold"
+      >
+        B
+      </button>
+
+      <button
+        class="color-btn black"
+        :class="{ active: fontColor === 'black' }"
+        @click="toggleBlack"
+      >
+        ⚫{{ fontColor === 'black' ? '✓' : '' }}
+      </button>
+      <button
+        class="color-btn blue"
+        :class="{ active: fontColor === 'blue' }"
+        @click="toggleBlue"
+      >
+        🔵
+      </button>
+
+      <button
+        class="color-btn red"
+        :class="{ active: fontColor === 'red' }"
+        @click="toggleRed"
+      >
+        🔴
+      </button>
+
+      <button
+        class="color-btn yellow"
+        :class="{ active: markerColor === 'yellow' }"
+        @click="toggleYellow"
+      >
+      🟨 
+      </button>
+
+      <button
+        class="color-btn green"
+        :class="{ active: markerColor === 'green' }"
+        @click="toggleGreen"
+      >🟩
+      </button>
+    </div>
     <div class="current-format">
+      <span>選択中</span>
       <span v-if="isBold">
         B
       </span>
@@ -46,54 +93,6 @@
       >
         🟩
       </span>
-    </div>
-    <div class="toolbar">
-      <button
-        class="bold-btn"
-        :class="{ active: isBold }"
-        @click="toggleBold"
-      >
-        B{{ isBold === true ? '✓' : '' }}
-      </button>
-
-      <button
-        class="color-btn black"
-        :class="{ active: fontColor === 'black' }"
-        @click="toggleBlack"
-      >
-        ⚫{{ fontColor === 'black' ? '✓' : '' }}
-      </button>
-      <button
-        class="color-btn blue"
-        :class="{ active: fontColor === 'blue' }"
-        @click="toggleBlue"
-      >
-        🔵{{ fontColor === 'blue' ? '✓' : '' }}
-      </button>
-
-      <button
-        class="color-btn red"
-        :class="{ active: fontColor === 'red' }"
-        @click="toggleRed"
-      >
-        🔴{{ fontColor === 'red' ? '✓' : '' }}
-      </button>
-
-      <button
-        class="color-btn yellow"
-        :class="{ active: markerColor === 'yellow' }"
-        @click="toggleYellow"
-      >
-      🟨 {{ markerColor === 'yellow' ? '✓' : '' }}
-      </button>
-
-      <button
-        class="color-btn green"
-        :class="{ active: markerColor === 'green' }"
-        @click="toggleGreen"
-      >🟩
-        {{ markerColor === 'green' ? '✓' : '' }}
-      </button>
     </div>
     <div
       ref="editor"
@@ -353,7 +352,10 @@
   border: 1px solid #ddd;
   border-radius: 10px;
 }
-
+.current-format{
+  border-radius: 8%;
+  border-color:#000;
+}
   .tool-btn {
     width: 44px;
     height: 44px;
@@ -431,9 +433,8 @@
   }
   .color-btn.active {
     transform: scale(1.4);
-
-    border: 5px solid #000;
-
+    background-color:  #ffd180;
+    border: 1px solid #000;
     box-shadow:
       0 0 10px rgba(0,0,0,.3),
       0 0 20px rgba(0,0,0,.2);
