@@ -368,9 +368,15 @@
     border-color: #555;
   }
 
-  .toolbar span {
+  .toolbar dev span {
     font-size: var(--label-font-size);
     font-weight: bold;
+  }
+  .toolber dev{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
   }
 
   /* ---------------- */
@@ -436,7 +442,7 @@
   /* ---------------- */
   /* 色選択ボタン      */
   /* ---------------- */
-
+  
   .bold-btn,
   .color-btn {
     width: 55px;
