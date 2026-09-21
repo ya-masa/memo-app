@@ -350,22 +350,6 @@
     border: 4px solid #000;
     box-shadow: 0 0 12px rgba(0,0,0,.4);
   }
-  /*.black {
-    background: #000000;
-  }
-  .blue {
-    background: #2196f3;
-  }
-  .red {
-    background: #f44336;
-  }
-  .yellow {
-    background: #ffeb3b;
-  }
-
-  .green {
-    background: #8bc34a;
-  }*/
 
   .back-btn {
     width: 80px;
