@@ -106,8 +106,8 @@
     --label-font-size: 24px;
     --memo-padding: 22px 11px;
     --memo-min-height: 140px;
-    --toolbtn-height:44px;
-    --toolbtn-font-size:18px;
+    --toolbtn-height:48px;
+    --toolbtn-font-size:20px;
   }
 
   .font-xl {
@@ -118,6 +118,6 @@
     --label-font-size: 30px;
     --memo-padding: 28px 14px;
     --memo-min-height: 180px;
-    --toolbtn-height:50px;
-    --toolbtn-font-size:22px;
+    --toolbtn-height:58px;
+    --toolbtn-font-size:24px;
   }
