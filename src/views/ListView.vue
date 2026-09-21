@@ -22,7 +22,7 @@
       v-if="selectMode"
       class="select-actions"
     >
-      <button @click="deleteSelected">
+      <button class="del-btn" @click="deleteSelected">
         削除
       </button>
 
@@ -163,6 +163,8 @@
   button {
     padding: 10px 18px;
     margin: 5px;
+    height: 70px;
+    border-radius: 20px;
   }
   .new-btn {
     width: 350px;
@@ -187,7 +189,18 @@
     margin-left: auto;
     text-align: right;
   }
+  .del-btn{
+    width: 130px;
+    height: 70px;
 
+    font-size: 26px;
+    font-weight: bold;
+
+    border-radius: 20px;
+
+    background: #fb6565;
+    color: white;
+  }
   .memo {
     width: 95%;
     margin: 12px auto;

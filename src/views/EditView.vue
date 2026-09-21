@@ -365,7 +365,6 @@
   .color-btn {
     width: 40px;
     height: 40px;
-
     border-radius: 50%;
 
     color: black;
@@ -376,7 +375,6 @@
     align-items: center;
     justify-content: center;
   }
-
   .tool-btn,
   .color-btn {
     transition: all 0.2s ease;
@@ -393,12 +391,14 @@
 
   .back-btn {
     width: 80px;
-    height: 40px;
+    height: 70px;
+    border-radius: 10px;
+    border: none;
   }
 
   .save-btn {
-    width: 120px;
-    height: 50px;
+    width: 310px;
+    height: 70px;
 
     font-size: 20px;
     font-weight: bold;
