@@ -362,6 +362,7 @@
 
     border: 1px solid #ddd;
     border-radius: 10px;
+    line-height: 1.5;
   }
 
   .dark .toolbar {
@@ -371,12 +372,14 @@
   .tool-group span,.toolbar span {
     font-size: var(--label-font-size);
     font-weight: bold;
+    
   }
   .tool-group{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
+    line-height: 1.5;
   }
 
   /* ---------------- */
