@@ -17,7 +17,7 @@
       >
         太字
       </button>
-      <span>文字の色</span>
+      <span>文字</span>
       <button
         class="color-btn black"
         :class="{ active: fontColor === 'black' }"
@@ -55,39 +55,6 @@
         @click="toggleGreen"
       >🟩緑
       </button>
-    </div>
-    <div class="current-format">
-      <span>選択中 : </span>
-      <span v-if="isBold">
-        太字
-      </span>
-      <span
-        v-if="fontColor === 'black'"
-        class="black-indicator"
-      >
-        ⚫
-      </span>
-      <span
-        v-if="fontColor === 'blue'"
-      >
-        🔵
-      </span>
-      <span
-        v-if="fontColor === 'red'"
-      >
-        🔴
-      </span>
-      <span
-        v-if="markerColor === 'yellow'"
-      >
-        🟨
-      </span>
-
-      <span
-        v-if="markerColor === 'green'"
-      >
-        🟩
-      </span>
     </div>
     <div
       ref="editor"
@@ -431,9 +398,9 @@
   /* ---------------- */
 
   .save-btn {
-    width: 170px;
+    width: 250px;
     height: 70px;
-
+    margin-left:auto;
     margin-top: 20px;
 
     font-size: var(--button-font-size);
@@ -503,12 +470,12 @@
   }
 
   .bold-btn.active {
-    background: #222;
-    color: white;
+    background: #ffd180;
+    color: black;
 
     transform: scale(1.15);
 
-    border: 3px solid #fff;
+    border: 3px solid #ffb74d;
 
     box-shadow:
       0 0 15px rgba(0,0,0,.5);
