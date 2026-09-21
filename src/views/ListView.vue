@@ -295,13 +295,14 @@ const editMemo = (memo) => {
 /* 日付表示 */
 
 const formatDate = (date) => {
-  return new Date(date).toLocaleString('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit'
-  })
+  const d = new Date(date)
+  const now = new Date()
+
+  if (d.getFullYear() === now.getFullYear()) {
+    return `${d.getMonth() + 1}月${d.getDate()}日`
+  }
+
+  return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
 }
 
 /* 削除 */
