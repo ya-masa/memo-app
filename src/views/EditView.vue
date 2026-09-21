@@ -398,7 +398,8 @@
   /* ---------------- */
 
   .save-btn {
-    width: 250px;
+    max-width: 500px;
+    width:90%;
     height: 70px;
     margin-left:auto;
     margin-top: 20px;
