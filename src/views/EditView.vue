@@ -437,8 +437,7 @@
   .tool-btn {
     width: ver(--toolbtn-height);
     height:ver(--toolbtn-height);
-
-    font-weight: bold;
+    margin:14px;
   }
 
   /* ---------------- */
@@ -450,6 +449,7 @@
     width: ver(--toolbtn-height);
     height:ver(--toolbtn-height) ;
 
+    margin:14px;
     border-radius: 50%;
 
     color: black;
