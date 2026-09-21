@@ -252,6 +252,9 @@
     // 背景色
     const hiliteColor = document.queryCommandValue('hiliteColor')
     console.log("hiliteColor:"+hiliteColor)
+    console.log(hiliteColor)
+    console.log(typeof hiliteColor)
+    console.log(JSON.stringify(hiliteColor))
 
     if (
       hiliteColor === '#ffff00' ||
