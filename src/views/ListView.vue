@@ -1,5 +1,11 @@
 <template>
   <div class="header">
+    <button
+      class="new-btn"
+      @click="newMemo"
+    >
+      新規作成
+    </button>
     <div v-if="showMenu" class="menu">
       <button 
         @click="startSelectMode"
@@ -24,13 +30,6 @@
         キャンセル
       </button>
     </div>
-    <button
-      class="new-btn"
-      @click="newMemo"
-    >
-      新規作成
-    </button>
-
     <div
       v-for="memo in memos"
       :key="memo.id"

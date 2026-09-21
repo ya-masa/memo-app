@@ -222,7 +222,7 @@
   onMounted(() => {
     loadMemo()
   })
-  
+
   const updateToolbarState = () => {
     // 太字
     isBold.value = document.queryCommandState('bold')
@@ -265,7 +265,7 @@
     } else {
       markerColor.value = ''
     }
-    console.log("markerColor:"+sibold)
+    console.log("isBold:"+isBold)
     console.log("fontColor:"+fontColor)
     console.log("markerColor:"+markerColor)
   }
