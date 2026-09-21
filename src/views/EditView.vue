@@ -17,44 +17,48 @@
       >
         太字
       </button>
-      <span>文字</span>
-      <button
-        class="color-btn black"
-        :class="{ active: fontColor === 'black' }"
-        @click="toggleBlack"
-      >
-        ⚫黒
-      </button>
-      <button
-        class="color-btn blue"
-        :class="{ active: fontColor === 'blue' }"
-        @click="toggleBlue"
-      >
-        🔵青
-      </button>
+      <div>
+        <span>文字</span>
+        <button
+          class="color-btn black"
+          :class="{ active: fontColor === 'black' }"
+          @click="toggleBlack"
+        >
+          ⚫黒
+        </button>
+        <button
+          class="color-btn blue"
+          :class="{ active: fontColor === 'blue' }"
+          @click="toggleBlue"
+        >
+          🔵青
+        </button>
 
-      <button
-        class="color-btn red"
-        :class="{ active: fontColor === 'red' }"
-        @click="toggleRed"
-      >
-        🔴赤
-      </button>
-      <span>マーカー</span>
-      <button
-        class="color-btn yellow"
-        :class="{ active: markerColor === 'yellow' }"
-        @click="toggleYellow"
-      >
-        🟨黄
-      </button>
+        <button
+          class="color-btn red"
+          :class="{ active: fontColor === 'red' }"
+          @click="toggleRed"
+        >
+          🔴赤
+        </button>
+      </div>
+      <div>
+        <span>マーカー</span>
+        <button
+          class="color-btn yellow"
+          :class="{ active: markerColor === 'yellow' }"
+          @click="toggleYellow"
+        >
+          🟨黄
+        </button>
 
-      <button
-        class="color-btn green"
-        :class="{ active: markerColor === 'green' }"
-        @click="toggleGreen"
-      >🟩緑
-      </button>
+        <button
+          class="color-btn green"
+          :class="{ active: markerColor === 'green' }"
+          @click="toggleGreen"
+        >🟩緑
+        </button>
+      </div>
     </div>
     <div
       ref="editor"
