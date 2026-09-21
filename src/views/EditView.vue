@@ -119,7 +119,7 @@
   const editingId = ref(null)
 
   const isBold = ref(false)
-  const fontColor = ref('')
+  const fontColor = ref('black')
   const markerColor = ref('')
 
   const loadMemo = async () => {
@@ -287,7 +287,7 @@
 
     background: white;
 
-    font-size: 18px;
+    font-size: 21px;
     line-height: 1.8;
 
     outline: none;
@@ -323,7 +323,7 @@
 
     border-radius: 50%;
 
-    color: white;
+    color: black;
     font-weight: bold;
     font-size: 18px;
 
