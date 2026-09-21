@@ -28,7 +28,7 @@
         :class="{ active: fontColor === 'black' }"
         @click="toggleBlack"
       >
-        ⚫{{ fontColor === 'black' ? '✓' : '' }}
+        ⚫
       </button>
       <button
         class="color-btn blue"
@@ -334,28 +334,28 @@
     outline: none;
   }
 
-.toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
 
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
 
-  margin: 12px 0;
+    margin: 12px 0;
 
-  padding: 10px;
+    padding: 10px;
 
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-}
-.current-format{
-  border-radius: 8%;
-  border-color:#000;
-}
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  .current-format{
+    border-radius: 8%;
+    border-color:#000;
+  }
   .tool-btn {
     width: 44px;
     height: 44px;
@@ -433,8 +433,8 @@
   }
   .color-btn.active {
     transform: scale(1.4);
-    background-color:  #ffd180;
-    border: 1px solid #000;
+    background:  #ffd180;
+    border: 2px solid #ffb74d;
     box-shadow:
       0 0 10px rgba(0,0,0,.3),
       0 0 20px rgba(0,0,0,.2);

@@ -165,7 +165,7 @@
     margin: 5px;
   }
   .new-btn {
-    width: 220px;
+    width: 350px;
     height: 70px;
 
     font-size: 26px;
@@ -183,7 +183,10 @@
 
     box-shadow: 0 4px 10px rgba(0,0,0,.2);
   }
-
+  .menu{
+    margin-left: auto;
+    text-align: right;
+  }
 
   .memo {
     width: 95%;
@@ -221,10 +224,10 @@
     background-color: #f5f5f5;
   }
   .selected {
-    border: 4px solid #2196f3;
-    background: #bbdefb;
+    border: 4px solid #fb86b7;
+    background: #fbbbca;
     transform: scale(1.03);
-    box-shadow: 0 0 15px rgba(33,150,243,.6);
+    box-shadow: 0 0 15px rgba(243, 33, 103, 0.6);
   }
 
   .checkmark {
@@ -232,7 +235,7 @@
     top: 10px;
     right: 10px;
     font-size: 21px;
-    color: #2196f3;
+    color: #f32121;
   }
 
   .memo {
