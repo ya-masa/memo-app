@@ -167,7 +167,7 @@
     border-radius: 20px;
   }
   .new-btn {
-    width: 350px;
+    width: 220px;
     height: 70px;
 
     font-size: 26px;

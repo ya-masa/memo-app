@@ -315,7 +315,13 @@
     margin: 0 auto;
     padding: 12px;
   }
-
+  .current-format{
+    
+    padding: 12px;
+  }
+  .current-format span{
+    font-size: 20px;
+  }
   .editor {
     min-height: 500px;
 
@@ -362,7 +368,7 @@
     font-weight: bold;
   }
 
-  .color-btn {
+  .bold-btn,.color-btn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -382,12 +388,6 @@
   .color-btn {
   position: relative;
   }
-  
-  .active {
-    transform: scale(1.4);
-    border: 4px solid #000;
-    box-shadow: 0 0 12px rgba(0,0,0,.4);
-  }
 
   .back-btn {
     width: 80px;
@@ -397,7 +397,7 @@
   }
 
   .save-btn {
-    width: 310px;
+    width: 170px;
     height: 70px;
 
     font-size: 20px;
