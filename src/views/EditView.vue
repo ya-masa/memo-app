@@ -437,7 +437,7 @@
   .tool-btn {
     width: ver(--toolbtn-height);
     height:ver(--toolbtn-height);
-    margin:14px;
+    margin:5px;
   }
 
   /* ---------------- */
