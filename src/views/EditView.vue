@@ -9,6 +9,12 @@
     >
       戻る
     </button>
+    <span
+      class="save-message"
+      :class="{ active: saveSuccess }"
+    >
+      ✅自動保存しました
+    </span>
     <div class="toolbar">
       <button
         class="bold-btn"
@@ -61,6 +67,7 @@
       @keyup="updateToolbarState"
       @mouseup="updateToolbarState"
       @focus="updateToolbarState"
+      @input="autoSaveMemo"
     ></div>
       <button
       class="save-btn"
@@ -107,32 +114,42 @@
   }
 
   const saveMemo = async () => {
+    await autoSaveMemo()
+    router.push('/')
+  }
 
+  const saveSuccess = ref(false)
+
+  const showSaved = () => {
+    saveSuccess.value = false
+
+    nextTick(() => {
+      saveSuccess.value = true
+
+      setTimeout(() => {
+        saveSuccess.value = false
+      }, 2000)
+    })
+  }
+  const autoSaveMemo = async () => {
     const content = editor.value.innerHTML
 
     if (!content.trim()) return
 
     if (editingId.value) {
-
-      await db.memos.update(
-        editingId.value,
-        {
-          content,
-          updatedAt: new Date()
-        }
-      )
-
+      await db.memos.update(editingId.value, {
+        content,
+        updatedAt: new Date()
+      })
     } else {
-
-      await db.memos.add({
+      const id = await db.memos.add({
         content,
         createdAt: new Date(),
         updatedAt: new Date()
       })
-
+      showSaved()
+      editingId.value = id
     }
-
-    router.push('/')
   }
 
   const cancelEdit = () => {
@@ -279,6 +296,16 @@
     }
 
     return ''
+  }
+
+  let saveTimer
+
+  const handleInput = () => {
+    clearTimeout(saveTimer)
+
+    saveTimer = setTimeout(() => {
+      autoSaveMemo()
+    }, 1000)
   }
 </script>
 
@@ -512,5 +539,37 @@
   .dark .current-format {
     color: #f3f4f6;
   }
+  
+  /* 自動保存メッセージ　*/
+.save-message {
+    opacity: 0;
+    color: #16a34a;
+    transition: all 0.3s ease;
+  }
 
+  .save-message.active {
+    opacity: 1;
+    text-shadow: 0 0 8px #4ade80;
+  }
+
+  @keyframes savedFlash {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    20% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+
+  .save-message.active {
+    animation: savedFlash 2s ease;
+  }
 </style>
