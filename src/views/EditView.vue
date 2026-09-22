@@ -440,7 +440,7 @@
     height:ver(--toolbtn-height) ;
 
     margin:14px;
-    border-radius: 50%;
+    border-radius: 20%;
 
     color: black;
 
