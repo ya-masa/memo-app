@@ -15,21 +15,21 @@
         :class="{ active: isBold }"
         @click="toggleBold"
       >
-        太字
-      </button>\
+        <span>太</span><span>字</span>
+      </button>
       <button
         class="color-btn black"
         :class="{ active: fontColor === 'black' }"
         @click="toggleBlack"
       >
-        ⚫黒
+        <span>⚫</span><span>黒</span>
       </button>
       <button
         class="color-btn blue"
         :class="{ active: fontColor === 'blue' }"
         @click="toggleBlue"
       >
-        🔵青
+        <span>🔵</span><span>青</span>
       </button>
 
       <button
@@ -37,21 +37,21 @@
         :class="{ active: fontColor === 'red' }"
         @click="toggleRed"
       >
-        🔴赤
+        <span>🔴</span><span>赤</span>
       </button>
       <button
         class="color-btn yellow"
         :class="{ active: markerColor === 'yellow' }"
         @click="toggleYellow"
       >
-        🟨黄
+        <span>🟨</span><span>黄</span>
       </button>
 
       <button
         class="color-btn green"
         :class="{ active: markerColor === 'green' }"
         @click="toggleGreen"
-      >🟩緑
+      ><span>🟩</span><span>緑</span>
       </button>
     </div>
     <div
@@ -409,55 +409,91 @@
   }
 
   /* ---------------- */
-  /* 色選択ボタン      */
+/* ツールバー        */
+/* ---------------- */
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 4px;
+
+  width: 100%;
+  padding: 6px;
+
+  box-sizing: border-box;
+
+  background: inherit;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+.dark .toolbar {
+  border-color: #555;
+}
+
   /* ---------------- */
-  
+  /* ツールボタン      */
+  /* ---------------- */
+
   .bold-btn,
   .color-btn {
     width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    height: clamp(60px, 14vw, 90px);
 
-    writing-mode: vertical-rl;
+    margin: 0;
+    padding: 4px;
+
+    border-radius: 12px;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 
-    font-size: clamp(12px, 2.5vw, 18px);
+    justify-content: center;
+    align-items: center;
+
+    gap: 2px;
+
+    font-size: clamp(12px, 3vw, 18px);
+    font-weight: bold;
+
+    background: white;
+    color: black;
+
+    transition: all .2s ease;
   }
 
-  .color-btn {
-    position: relative;
+  .dark .bold-btn,
+  .dark .color-btn {
+    background: #333;
+    color: white;
+  }
+
+  .bold-btn span,
+  .color-btn span {
+    line-height: 1;
   }
 
   /* ---------------- */
   /* 選択状態          */
   /* ---------------- */
 
-  .bold-btn.active {
-    background: #ffd180;
-    color: black;
-
-    transform: scale(1.15);
-
-    border: 2px solid #ffb74d;
-    box-shadow:
-          0 0 10px rgba(0, 0, 0, .5),
-          inset 0 0 10px rgba(0, 0, 0, .3);
-  }
-
+  .bold-btn.active,
   .color-btn.active {
-    transform: scale(1.4);
-
     background: #ffd180;
 
     border: 2px solid #ffb74d;
 
+    transform: scale(1.08);
+
     box-shadow:
-      0 0 10px rgba(0,0,0,.3),
-      inset 0 0 10px rgba(0,0,0,.2);
+      0 0 8px rgba(0,0,0,.25),
+      inset 0 0 4px rgba(0,0,0,.15);
   }
 
   /* ---------------- */
