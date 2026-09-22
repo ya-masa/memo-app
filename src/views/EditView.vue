@@ -16,47 +16,43 @@
         @click="toggleBold"
       >
         太字
+      </button>\
+      <button
+        class="color-btn black"
+        :class="{ active: fontColor === 'black' }"
+        @click="toggleBlack"
+      >
+        ⚫黒
       </button>
-      <div class="tool-group">
-        <button
-          class="color-btn black"
-          :class="{ active: fontColor === 'black' }"
-          @click="toggleBlack"
-        >
-          ⚫黒
-        </button>
-        <button
-          class="color-btn blue"
-          :class="{ active: fontColor === 'blue' }"
-          @click="toggleBlue"
-        >
-          🔵青
-        </button>
+      <button
+        class="color-btn blue"
+        :class="{ active: fontColor === 'blue' }"
+        @click="toggleBlue"
+      >
+        🔵青
+      </button>
 
-        <button
-          class="color-btn red"
-          :class="{ active: fontColor === 'red' }"
-          @click="toggleRed"
-        >
-          🔴赤
-        </button>
-      </div>
-      <div class="tool-group">
-        <button
-          class="color-btn yellow"
-          :class="{ active: markerColor === 'yellow' }"
-          @click="toggleYellow"
-        >
-          🟨黄
-        </button>
+      <button
+        class="color-btn red"
+        :class="{ active: fontColor === 'red' }"
+        @click="toggleRed"
+      >
+        🔴赤
+      </button>
+      <button
+        class="color-btn yellow"
+        :class="{ active: markerColor === 'yellow' }"
+        @click="toggleYellow"
+      >
+        🟨黄
+      </button>
 
-        <button
-          class="color-btn green"
-          :class="{ active: markerColor === 'green' }"
-          @click="toggleGreen"
-        >🟩緑
-        </button>
-      </div>
+      <button
+        class="color-btn green"
+        :class="{ active: markerColor === 'green' }"
+        @click="toggleGreen"
+      >🟩緑
+      </button>
     </div>
     <div
       ref="editor"
@@ -317,7 +313,7 @@
 
   .editor {
     min-height: 500px;
-    padding-top: var(--);
+    padding-top: var(--editer-height);
     margin-top: 10px;
     padding: 16px;
 
@@ -345,12 +341,11 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
 
-    display: flex;
     width: 100%;
     height:var(--toolbar-height);
-    flex-wrap: wrap;
-    justify-content: center;
 
     gap: 12px;
 

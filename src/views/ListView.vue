@@ -25,7 +25,7 @@
         選択削除
       </button>
       <button @click="mode = 'find'">
-        探す
+        🔍探す
       </button>
       <select 
         class="menu-select"
@@ -232,7 +232,7 @@ const filteredMemos = computed(() => {
     return memos.value
   }
   toggleMenu()
-  
+
   if (!searchText.value.trim()) {
     return memos.value
   }
