@@ -431,16 +431,6 @@
   }
 
   /* ---------------- */
-  /* ツールボタン      */
-  /* ---------------- */
-
-  .tool-btn {
-    width: ver(--toolbtn-height);
-    height:ver(--toolbtn-height);
-    margin:5px;
-  }
-
-  /* ---------------- */
   /* 色選択ボタン      */
   /* ---------------- */
   
@@ -458,8 +448,10 @@
     font-size:ver(--toolbtn-font-size);
 
     display: flex;
+    flex-direction: column; /* ←追加 */
     align-items: center;
     justify-content: center;
+    writing-mode: vertical-rl;
   }
 
   .color-btn {
@@ -476,7 +468,7 @@
     border: 4px solid #000;
 
     box-shadow:
-      0 0 15px rgba(0, 0, 0, .5),
+      0 0 10px rgba(0, 0, 0, .5),
       inset 0 0 10px rgba(0, 0, 0, .3);
 
     filter: brightness(.9);
@@ -490,7 +482,7 @@
 
     border: 3px solid #ffb74d;
     box-shadow:
-          0 0 15px rgba(0, 0, 0, .5),
+          0 0 10px rgba(0, 0, 0, .5),
           inset 0 0 10px rgba(0, 0, 0, .3);
   }
 
@@ -503,7 +495,7 @@
 
     box-shadow:
       0 0 10px rgba(0,0,0,.3),
-      0 0 20px rgba(0,0,0,.2);
+      inset 0 0 10px rgba(0,0,0,.2);
   }
 
   /* ---------------- */
