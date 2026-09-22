@@ -313,7 +313,7 @@
 
   .editor {
     min-height: 500px;
-    padding-top: var(--editer-height);
+    padding-top: var(--editer-paddingtop);
     margin-top: 10px;
     padding: 16px;
 
@@ -340,23 +340,14 @@
   .toolbar {
     position: sticky;
     top: 0;
-    z-index: 100;
+
     display: grid;
     grid-template-columns: repeat(7, 1fr);
 
+    gap: 4px;
+
     width: 100%;
-    height:var(--toolbar-height);
-
-    gap: 12px;
-
-    margin: 12px 0;
-    padding: 10px;
-
-    background: inherit;
-
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    line-height: 1.5;
+    height: clamp(60px, 12vw, 90px);
   }
 
   .dark .toolbar {
@@ -423,24 +414,18 @@
   
   .bold-btn,
   .color-btn {
-    width: ver(--toolbtn-height);
-    height:ver(--toolbtn-height) ;
-    flex: 1;
-    min-width: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 
-    margin:0px;
-    border-radius: 20%;
-
-    color: black;
-
-    font-weight: bold;
-    font-size:ver(--toolbtn-font-size);
+    writing-mode: vertical-rl;
 
     display: flex;
-    flex-direction: column; /* ←追加 */
     align-items: center;
     justify-content: center;
-    writing-mode: vertical-rl;
+
+    font-size: clamp(12px, 2.5vw, 18px);
   }
 
   .color-btn {
