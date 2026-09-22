@@ -1,101 +1,57 @@
 <template>
   <div
-    class="container"
-    :class="[themeClass, fontSizeClass]"
+    v-if="showMenu"
+    class="menu"
   >
-    <div class="header">
-      <button
-        class="new-btn"
-        @click="newMemo"
-      >
-        新規作成
-      </button>
+    <button @click="mode = 'delete'">
+      選択削除
+    </button>
 
-      <button
-        class="menu-button"
-        @click="toggleMenu"
-      >
-        メニュー
-      </button>
-    </div>
+    <select v-model="theme">
+      <option value="light">
+        カラー：ライト
+      </option>
+      <option value="dark">
+        カラー：ダーク
+      </option>
+    </select>
+
+    <select v-model="fontSize">
+      <option value="xs">
+        文字サイズ：極小
+      </option>
+      <option value="sm">
+        文字サイズ：小
+      </option>
+      <option value="md">
+        文字サイズ：標準
+      </option>
+      <option value="lg">
+        文字サイズ：大
+      </option>
+      <option value="xl">
+        文字サイズ：特大
+      </option>
+    </select>
 
     <div
-      v-if="showMenu"
-      class="menu"
+      v-if="mode === 'delete'"
+      class="select-actions"
     >
-      <button @click="mode = 'delete'">
-        選択削除
+      <h3>
+        削除したいメモを選んでから削除を押してください
+      </h3>
+
+      <button
+        class="del-btn"
+        @click="deleteSelected"
+      >
+        削除
       </button>
 
-      <button @click="mode = 'color'">
-        カラー：{{ theme === 'light' ? 'ライト' : 'ダーク' }}
+      <button @click="mode = ''">
+        キャンセル
       </button>
-
-      <button @click="mode = 'fontsize'">
-        文字サイズ：{{ fontSizeLabel }}
-      </button>
-
-      <!-- カラー設定 -->
-      <div
-        v-if="mode === 'color'"
-        class="select-color"
-      >
-        <select v-model="theme">
-          <option value="light">
-            ライトモード
-          </option>
-          <option value="dark">
-            ダークモード
-          </option>
-        </select>
-      </div>
-
-      <!-- フォントサイズ設定 -->
-      <div
-        v-if="mode === 'fontsize'"
-        class="select-color"
-      >
-        <select v-model="fontSize">
-          <option value="xs">
-            極小
-          </option>
-          <option value="sm">
-            小
-          </option>
-          <option value="md">
-            標準
-          </option>
-          <option value="lg">
-            大
-          </option>
-          <option value="xl">
-            特大
-          </option>
-        </select>
-      </div>
-
-      <!-- 削除 -->
-      <div
-        v-if="mode === 'delete'"
-        class="select-actions"
-      >
-        <h3>
-          削除したいメモを選んでから削除を押してください
-        </h3>
-
-        <button
-          class="del-btn"
-          @click="deleteSelected"
-        >
-          削除
-        </button>
-
-        <br><br>
-
-        <button @click="mode = ''">
-          キャンセル
-        </button>
-      </div>
     </div>
 
     <!-- メモ一覧 -->
