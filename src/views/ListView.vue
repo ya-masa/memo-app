@@ -23,13 +23,13 @@
     >
       <button @click="
         mode = 'delete';
-        showMenu.value = !showMenu.value"
+        showMenu = !showMenu;"
       >
         選択削除
       </button>
       <button @click="
         mode = 'find';
-        showMenu.value = !showMenu.value;"
+        showMenu = !showMenu;"
       >
         🔍探す
       </button>
