@@ -23,13 +23,13 @@
     >
       <button @click="
         mode = 'delete';
-        showMenu=false;"
+        showMenu.value = !showMenu.value"
       >
         選択削除
       </button>
       <button @click="
         mode = 'find';
-        showMenu=false;"
+        showMenu.value = !showMenu.value;"
       >
         🔍探す
       </button>
@@ -237,8 +237,6 @@ const filteredMemos = computed(() => {
   if (mode.value !== 'find') {
     return memos.value
   }
-  toggleMenu()
-
   if (!searchText.value.trim()) {
     return memos.value
   }
