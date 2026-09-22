@@ -73,7 +73,7 @@
     --memo-min-height: 70px;
     --toolbtn-height:33px;
     --toolbar-height:42px;
-    --toolbtn-font-size:10px;
+    --toolbtn-font-size:4px;
   }
 
   .font-sm {
@@ -88,7 +88,7 @@
     --toolbtn-height:38px;
     --toolbar-height:56px;
     --editer-padding-top:100px;
-    --toolbtn-font-size:14px;
+    --toolbtn-font-size:6px;
   }
 
   .font-md {
@@ -102,7 +102,7 @@
     --memo-min-height: 110px;
     --toolbtn-height:44px;
     --toolbar-height:52px;
-    --toolbtn-font-size:12px;
+    --toolbtn-font-size:8px;
   }
 
   .font-lg {
@@ -116,7 +116,7 @@
     --memo-min-height: 140px;
     --toolbtn-height:48px;
     --toolbar-height:56px;
-    --toolbtn-font-size:16px;
+    --toolbtn-font-size:10px;
   }
 
   .font-xl {
@@ -130,6 +130,6 @@
     --memo-min-height: 180px;
     --toolbtn-height:54px;
     --toolbar-height:60px;
-    --toolbtn-font-size:20px;
+    --toolbtn-font-size:12px;
     
   }
