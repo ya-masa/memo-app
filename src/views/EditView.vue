@@ -67,7 +67,7 @@
       @keyup="updateToolbarState"
       @mouseup="updateToolbarState"
       @focus="updateToolbarState"
-      @input="autoSaveMemo"
+      @input="handleInput"
     ></div>
       <button
       class="save-btn"
@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, nextTick } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { db } from '../db'
   import { useSettings } from '../composables/useSettings'
@@ -117,19 +117,17 @@
     await autoSaveMemo()
     router.push('/')
   }
-
   const saveSuccess = ref(false)
+  let saveMessageTimer = null
 
   const showSaved = () => {
-    saveSuccess.value = false
+    saveSuccess.value = true
 
-    nextTick(() => {
-      saveSuccess.value = true
+    clearTimeout(saveMessageTimer)
 
-      setTimeout(() => {
-        saveSuccess.value = false
-      }, 2000)
-    })
+    saveMessageTimer = setTimeout(() => {
+      saveSuccess.value = false
+    }, 2000)
   }
   const autoSaveMemo = async () => {
     const content = editor.value.innerHTML
@@ -147,11 +145,13 @@
         createdAt: new Date(),
         updatedAt: new Date()
       })
-      showSaved()
+
       editingId.value = id
     }
-  }
 
+    showSaved()
+  }
+  
   const cancelEdit = () => {
     if (!confirm('変更を破棄して戻りますか？')) {
       return
@@ -307,6 +307,7 @@
       autoSaveMemo()
     }, 1000)
   }
+  
 </script>
 
 <style scoped>
