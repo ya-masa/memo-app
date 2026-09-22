@@ -18,7 +18,6 @@
         太字
       </button>
       <div class="tool-group">
-        <span>文字</span>
         <button
           class="color-btn black"
           :class="{ active: fontColor === 'black' }"
@@ -43,7 +42,6 @@
         </button>
       </div>
       <div class="tool-group">
-        <span>マーカー</span>
         <button
           class="color-btn yellow"
           :class="{ active: markerColor === 'yellow' }"
@@ -439,7 +437,7 @@
     width: ver(--toolbtn-height);
     height:ver(--toolbtn-height) ;
 
-    margin:14px;
+    margin:5px;
     border-radius: 20%;
 
     color: black;
@@ -462,25 +460,13 @@
   /* 選択状態          */
   /* ---------------- */
 
-  .active {
-    transform: scale(1.25);
-
-    border: 4px solid #000;
-
-    box-shadow:
-      0 0 10px rgba(0, 0, 0, .5),
-      inset 0 0 10px rgba(0, 0, 0, .3);
-
-    filter: brightness(.9);
-  }
-
   .bold-btn.active {
     background: #ffd180;
     color: black;
 
     transform: scale(1.15);
 
-    border: 3px solid #ffb74d;
+    border: 2px solid #ffb74d;
     box-shadow:
           0 0 10px rgba(0, 0, 0, .5),
           inset 0 0 10px rgba(0, 0, 0, .3);
