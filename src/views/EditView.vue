@@ -459,7 +459,7 @@
 
     gap: 2px;
 
-    font-size: clamp(8px, 3vw, 16px);
+    font-size: clamp(8px, 2vw, 16px);
     font-weight: bold;
 
     background: white;
