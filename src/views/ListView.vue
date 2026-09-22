@@ -25,7 +25,10 @@
         選択削除
       </button>
 
-      <select v-model="theme">
+      <select 
+        class="menu-select"
+        v-model="theme"
+        >
         <option value="light">
           カラー：ライト
         </option>
@@ -34,7 +37,10 @@
         </option>
       </select>
 
-      <select v-model="fontSize">
+      <select 
+        class="menu-select" 
+        v-model="fontSize"
+        >
         <option value="xs">
           文字サイズ：極小
         </option>
@@ -245,7 +251,7 @@ onMounted(async () => {
   /* ボタン            */
   /* ---------------- */
 
-  button {
+  button ,.menu select{
     padding: 10px 18px;
     margin: 5px;
 
