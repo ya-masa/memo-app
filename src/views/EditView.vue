@@ -151,11 +151,10 @@
 
     showSaved()
   }
-  
+
   const cancelEdit = () => {
-    if (!confirm('変更を破棄して戻りますか？')) {
-      return
-    }router.push('/')
+    autoSaveMemo()  
+    router.push('/')
   }
 
   const toggleBold = () => {
