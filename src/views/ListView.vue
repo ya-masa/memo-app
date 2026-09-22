@@ -157,18 +157,6 @@ const toggleMenu = () => {
 
 const searchText = ref('')
 
-const fontSizeLabel = computed(() => {
-  const labels = {
-    xs: '極小',
-    sm: '小',
-    md: '標準',
-    lg: '大',
-    xl: '特大'
-  }
-
-  return labels[fontSize.value] || '標準'
-})
-
 watch(theme, (value) => {
   setTheme(value)
 })
@@ -243,7 +231,8 @@ const filteredMemos = computed(() => {
   if (mode.value !== 'find') {
     return memos.value
   }
-
+  toggleMenu()
+  
   if (!searchText.value.trim()) {
     return memos.value
   }

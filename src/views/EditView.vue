@@ -317,7 +317,7 @@
 
   .editor {
     min-height: 500px;
-
+    padding-top: var(--);
     margin-top: 10px;
     padding: 16px;
 
@@ -328,7 +328,6 @@
 
     font-size: var(--editor-font-size);
     line-height: 1.8;
-
     outline: none;
   }
 
@@ -348,6 +347,8 @@
     z-index: 100;
 
     display: flex;
+    width: 100%;
+    height:var(--toolbar-height);
     flex-wrap: wrap;
     justify-content: center;
 
@@ -371,13 +372,6 @@
     font-size: var(--button-font-size);
     font-weight: bold;
     
-  }
-  .tool-group{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    line-height: 1.5;
   }
 
   /* ---------------- */
@@ -436,8 +430,10 @@
   .color-btn {
     width: ver(--toolbtn-height);
     height:ver(--toolbtn-height) ;
+    flex: 1;
+    min-width: 0;
 
-    margin:5px;
+    margin:0px;
     border-radius: 20%;
 
     color: black;
