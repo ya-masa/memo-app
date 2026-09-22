@@ -2,7 +2,7 @@
   <div
     class="container"
     :class="[themeClass, fontSizeClass]"
-    >
+  >
     <div class="header">
       <button
         class="new-btn"
@@ -19,62 +19,70 @@
       </button>
     </div>
 
-<div
-  v-if="showMenu"
-  class="menu"
->
-  <button @click="mode = 'delete'">
-    選択削除
-  </button>
+    <div
+      v-if="showMenu"
+      class="menu"
+    >
+      <button @click="mode = 'delete'">
+        選択削除
+      </button>
 
-  <button @click="mode = 'color'">
-    カラー：{{ theme === 'light' ? 'ライト' : 'ダーク' }}
-  </button>
+      <button @click="mode = 'color'">
+        カラー：{{ theme === 'light' ? 'ライト' : 'ダーク' }}
+      </button>
 
-  <button @click="mode = 'fontsize'">
-    文字サイズ：{{ fontSizeLabel }}
-  </button>
+      <button @click="mode = 'fontsize'">
+        文字サイズ：{{ fontSizeLabel }}
+      </button>
 
-  <!-- カラー -->
-  <div
-    v-if="mode === 'color'"
-    class="select-color"
-  >
-    <select v-model="theme">
-      <option value="light">カラーモード：ライトモード</option>
-      <option value="dark">カラーモード：ダークモード</option>
-    </select>
+      <!-- カラー設定 -->
+      <div
+        v-if="mode === 'color'"
+        class="select-color"
+      >
+        <select v-model="theme">
+          <option value="light">
+            ライトモード
+          </option>
+          <option value="dark">
+            ダークモード
+          </option>
+        </select>
+      </div>
 
-    <button @click="mode = ''">
-      閉じる
-    </button>
-  </div>
+      <!-- フォントサイズ設定 -->
+      <div
+        v-if="mode === 'fontsize'"
+        class="select-color"
+      >
+        <select v-model="fontSize">
+          <option value="xs">
+            極小
+          </option>
+          <option value="sm">
+            小
+          </option>
+          <option value="md">
+            標準
+          </option>
+          <option value="lg">
+            大
+          </option>
+          <option value="xl">
+            特大
+          </option>
+        </select>
+      </div>
 
-  <!-- フォントサイズ -->
-  <div
-    v-if="mode === 'fontsize'"
-    class="select-color"
-  >
-    <select v-model="fontSize">
-      <option value="xs">フォントカラー：極小</option>
-      <option value="sm">フォントカラー：小</option>
-      <option value="md">フォントカラー：標準</option>
-      <option value="lg">フォントカラー：大</option>
-      <option value="xl">フォントカラー：特大</option>
-    </select>
-
-    <button @click="mode = ''">
-      閉じる
-    </button>
-  </div>
-</div>
-    <!-- 削除 -->
-    <div class="del-container">
+      <!-- 削除 -->
       <div
         v-if="mode === 'delete'"
         class="select-actions"
       >
-      <h3>削除したいメモを選んでから削除を押してください</h3>
+        <h3>
+          削除したいメモを選んでから削除を押してください
+        </h3>
+
         <button
           class="del-btn"
           @click="deleteSelected"
@@ -105,15 +113,11 @@
         {{ selectedIds.includes(memo.id) ? '✓' : '' }}
       </span>
 
-      <br><br>
-
       <div
         class="memo-preview"
         v-html="memo.content"
         @click.stop="mode !== 'delete' && editMemo(memo)"
-      ></div>
-
-      <br><br>
+      />
 
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
@@ -123,11 +127,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import '@vueup/vue-quill/dist/vue-quill.snow.css'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
+
 import { db } from '../db'
 import { useSettings } from '../composables/useSettings'
+
+const router = useRouter()
 
 const {
   theme,
@@ -140,36 +147,33 @@ const {
 
 const memos = ref([])
 const selectedIds = ref([])
-const showMenu = ref(false)
 
+const showMenu = ref(false)
 const mode = ref('')
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value
 }
 
-/* 削除モード */
+const fontSizeLabel = computed(() => {
+  const labels = {
+    xs: '極小',
+    sm: '小',
+    md: '標準',
+    lg: '大',
+    xl: '特大'
+  }
 
-const delSelectMode = () => {
-  mode.value = 'delete'
-  showMenu.value = false
-}
+  return labels[fontSize.value] || '標準'
+})
 
-/* カラーモード */
+watch(theme, (value) => {
+  setTheme(value)
+})
 
-const colorSelectMode = () => {
-  mode.value = 'color'
-  showMenu.value = false
-}
-
-/* 文字サイズモード */
-
-const fontsizeSelectMode = () => {
-  mode.value = 'fontsize'
-  showMenu.value = false
-}
-
-/* 選択処理 */
+watch(fontSize, (value) => {
+  setFontSize(value)
+})
 
 const toggleSelect = (id) => {
   const index = selectedIds.value.indexOf(id)
@@ -181,18 +185,12 @@ const toggleSelect = (id) => {
   }
 }
 
-/* メモ読込 */
-
 const loadMemos = async () => {
   memos.value = await db.memos
     .orderBy('createdAt')
     .reverse()
     .toArray()
 }
-
-/* ルーター */
-
-const router = useRouter()
 
 const newMemo = () => {
   router.push('/edit')
@@ -201,8 +199,6 @@ const newMemo = () => {
 const editMemo = (memo) => {
   router.push(`/edit/${memo.id}`)
 }
-
-/* 日付表示 */
 
 const formatDate = (date) => {
   const d = new Date(date)
@@ -214,8 +210,6 @@ const formatDate = (date) => {
 
   return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
 }
-
-/* 削除 */
 
 const deleteSelected = async () => {
   if (!selectedIds.value.length) return
@@ -234,24 +228,8 @@ const deleteSelected = async () => {
   await loadMemos()
 }
 
-/* キャンセル */
-
 const cancelSelect = () => {
   selectedIds.value = []
-  mode.value = ''
-}
-
-/* テーマ保存 */
-
-const colorSelected = () => {
-  setTheme(theme.value)
-  mode.value = ''
-}
-
-/* フォントサイズ保存 */
-
-const fontsizeSelected = () => {
-  setFontSize(fontSize.value)
   mode.value = ''
 }
 
