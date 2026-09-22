@@ -16,7 +16,7 @@
       >
         メニュー
       </button>
-      </div>
+    </div>
     <div
       v-if="showMenu"
       class="menu"
@@ -24,7 +24,9 @@
       <button @click="mode = 'delete'">
         選択削除
       </button>
-
+      <button @click="mode = 'find'">
+        探す
+      </button>
       <select 
         class="menu-select"
         v-model="theme"
@@ -57,11 +59,11 @@
           文字サイズ：特大
         </option>
       </select>
-
-      <div
-        v-if="mode === 'delete'"
-        class="select-actions"
-      >
+    </div>
+    <div
+      v-if="mode === 'delete'"
+      class="select-actions"
+    >
         <h3>
           削除したいメモを選んでから削除を押してください
         </h3>
@@ -77,10 +79,22 @@
           キャンセル
         </button>
       </div>
-    </div>
+      <div
+        v-if="mode === 'find'"
+        class="find-actions"
+      >
+        <input
+          v-model="searchText"
+          type="text"
+          placeholder="キーワードを入力"
+        >
+        <button @click="mode = ''">
+          閉じる
+        </button>
+      </div>
     <!-- メモ一覧 -->
     <div
-      v-for="memo in memos"
+      v-for="memo in filteredMemos"
       :key="memo.id"
       class="memo"
       :class="{ selected: selectedIds.includes(memo.id) }"
@@ -102,6 +116,12 @@
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
       </div>
+    </div>
+    <div
+      v-if="mode === 'find' && filteredMemos.length === 0"
+      class="no-result"
+    >
+      該当するメモはありません
     </div>
   </div>
 </template>
@@ -134,6 +154,8 @@ const mode = ref('')
 const toggleMenu = () => {
   showMenu.value = !showMenu.value
 }
+
+const searchText = ref('')
 
 const fontSizeLabel = computed(() => {
   const labels = {
@@ -215,6 +237,26 @@ const cancelSelect = () => {
 
 onMounted(async () => {
   await loadMemos()
+})
+
+const filteredMemos = computed(() => {
+  if (mode.value !== 'find') {
+    return memos.value
+  }
+
+  if (!searchText.value.trim()) {
+    return memos.value
+  }
+
+  const keyword = searchText.value.toLowerCase()
+
+  return memos.value.filter(memo => {
+    const text = memo.content
+      .replace(/<[^>]*>/g, '')
+      .toLowerCase()
+
+    return text.includes(keyword)
+  })
 })
 </script>
 
