@@ -1,59 +1,77 @@
 <template>
   <div
-    v-if="showMenu"
-    class="menu"
+    class="container"
+    :class="[themeClass, fontSizeClass]"
   >
-    <button @click="mode = 'delete'">
-      選択削除
-    </button>
-
-    <select v-model="theme">
-      <option value="light">
-        カラー：ライト
-      </option>
-      <option value="dark">
-        カラー：ダーク
-      </option>
-    </select>
-
-    <select v-model="fontSize">
-      <option value="xs">
-        文字サイズ：極小
-      </option>
-      <option value="sm">
-        文字サイズ：小
-      </option>
-      <option value="md">
-        文字サイズ：標準
-      </option>
-      <option value="lg">
-        文字サイズ：大
-      </option>
-      <option value="xl">
-        文字サイズ：特大
-      </option>
-    </select>
-
-    <div
-      v-if="mode === 'delete'"
-      class="select-actions"
-    >
-      <h3>
-        削除したいメモを選んでから削除を押してください
-      </h3>
-
+    <div class="header">
       <button
-        class="del-btn"
-        @click="deleteSelected"
+        class="new-btn"
+        @click="newMemo"
       >
-        削除
+        新規作成
+      </button>
+      <button
+        class="menu-button"
+        @click="toggleMenu"
+      >
+        メニュー
+      </button>
+      </div>
+    <div
+      v-if="showMenu"
+      class="menu"
+    >
+      <button @click="mode = 'delete'">
+        選択削除
       </button>
 
-      <button @click="mode = ''">
-        キャンセル
-      </button>
+      <select v-model="theme">
+        <option value="light">
+          カラー：ライト
+        </option>
+        <option value="dark">
+          カラー：ダーク
+        </option>
+      </select>
+
+      <select v-model="fontSize">
+        <option value="xs">
+          文字サイズ：極小
+        </option>
+        <option value="sm">
+          文字サイズ：小
+        </option>
+        <option value="md">
+          文字サイズ：標準
+        </option>
+        <option value="lg">
+          文字サイズ：大
+        </option>
+        <option value="xl">
+          文字サイズ：特大
+        </option>
+      </select>
+
+      <div
+        v-if="mode === 'delete'"
+        class="select-actions"
+      >
+        <h3>
+          削除したいメモを選んでから削除を押してください
+        </h3>
+
+        <button
+          class="del-btn"
+          @click="deleteSelected"
+        >
+          削除
+        </button>
+
+        <button @click="mode = ''">
+          キャンセル
+        </button>
+      </div>
     </div>
-
     <!-- メモ一覧 -->
     <div
       v-for="memo in memos"
@@ -73,7 +91,7 @@
         class="memo-preview"
         v-html="memo.content"
         @click.stop="mode !== 'delete' && editMemo(memo)"
-      />
+      ></div>
 
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
