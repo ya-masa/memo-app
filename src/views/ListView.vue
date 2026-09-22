@@ -452,4 +452,8 @@ const filteredMemos = computed(() => {
     background: #2a2d35;
   }
 
+  .find-actions input{
+    font-size:var(--editor-font-size);
+    height:80px;
+  }
 </style>
