@@ -21,10 +21,16 @@
       v-if="showMenu"
       class="menu"
     >
-      <button @click="mode = 'delete'">
+      <button @click="
+        mode = 'delete';
+        showMenu=false;"
+      >
         選択削除
       </button>
-      <button @click="mode = 'find'">
+      <button @click="
+        mode = 'find';
+        showMenu=false;"
+      >
         🔍探す
       </button>
       <select 
