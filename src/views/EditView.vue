@@ -516,7 +516,7 @@
     background: #ffd180;
 
     border: 2px solid #ffb74d;
-    height:var(--toolbar-height);
+    height:var(--toolbtn-height);
     padding:2px;
 
     transform: scale(1.08);
