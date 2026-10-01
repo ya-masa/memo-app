@@ -361,33 +361,6 @@
   }
 
   /* ---------------- */
-  /* ツールバー        */
-  /* ---------------- */
-
-  .toolbar {
-    position: sticky;
-    top: 0;
-
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-
-    gap: 4px;
-
-    width: 100%;
-    height: clamp(60px, 12vw, 90px);
-  }
-
-  .dark .toolbar {
-    border-color: #555;
-  }
-
-  .tool-group span,.toolbar span {
-    font-size: var(--button-font-size);
-    font-weight: bold;
-    
-  }
-
-  /* ---------------- */
   /* 汎用ボタン        */
   /* ---------------- */
 
@@ -417,7 +390,7 @@
   .save-btn {
     max-width: 500px;
     width:100%;
-    height: 70px;
+    height: var(--button-height);
     margin:auto 0;
     margin-top: 20px;
 
@@ -462,10 +435,15 @@
   border-radius: 12px;
 }
 
-.dark .toolbar {
-  border-color: #555;
-}
+  .dark .toolbar {
+    border-color: #555;
+  }
 
+  .tool-group span,.toolbar span {
+    font-size: var(--button-font-size);
+    font-weight: bold;
+    
+  }
   /* ---------------- */
   /* ツールボタン      */
   /* ---------------- */

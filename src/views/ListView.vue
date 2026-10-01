@@ -290,7 +290,7 @@ const filteredMemos = computed(() => {
     padding: 10px 18px;
     margin: 5px;
 
-    min-height: 50px;
+    min-height: var(--button-height);
 
     font-size: var(--button-font-size);
     font-weight: bold;

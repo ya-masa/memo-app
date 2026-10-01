@@ -64,7 +64,7 @@
 
   .font-xs {
     --button-font-size: 18px;
-    --button-height: 20px;
+    --button-height: 22px;
     --memo-font-size: 14px;
     --date-font-size: 12px;
     --editor-font-size: 14px;
@@ -79,7 +79,7 @@
 
   .font-sm {
     --button-font-size: 20px;
-    --button-height: 22px;
+    --button-height: 24px;
     --memo-font-size: 18px;
     --date-font-size: 14px;
     --editor-font-size: 18px;
@@ -95,7 +95,7 @@
 
   .font-md {
     --button-font-size: 24px;
-    --button-height: 26px;
+    --button-height: 28px;
     --memo-font-size: 21px;
     --date-font-size: 18px;
     --editor-font-size: 21px;
@@ -110,7 +110,7 @@
 
   .font-lg {
     --button-font-size: 28px;
-    --button-height: 30px;
+    --button-height: 32px;
     --memo-font-size: 26px;
     --date-font-size: 22px;
     --editor-font-size: 28px;
@@ -125,7 +125,7 @@
 
   .font-xl {
     --button-font-size: 32px;
-    --button-height: 34px;
+    --button-height: 36px;
     --memo-font-size: 32px;
     --date-font-size: 28px;
     --editor-font-size: 34px;
@@ -134,7 +134,7 @@
     --memo-padding: 5px;
     --memo-min-height: 180px;
     --toolbtn-height:54px;
-    --toolbar-height:84px;
+    --toolbar-height:80px;
     --toolbtn-font-size:12px;
     
   }
