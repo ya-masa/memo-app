@@ -450,6 +450,7 @@
   gap: 4px;
 
   width: 100%;
+  height: clamp(20px, 14vw, 150px);
   padding: 6px;
 
   box-sizing: border-box;
@@ -471,7 +472,7 @@
   .bold-btn,
   .color-btn {
     width: 100%;
-    height: clamp(60px, 14vw, 90px);
+    height: clamp(20px, 14vw, 150px);
 
     margin: 0;
     padding: 4px;
@@ -486,7 +487,7 @@
 
     gap: 2px;
 
-    font-size: clamp(8px, 2vw, 16px);
+    font-size: clamp(4px, 2vw, 20px);
     font-weight: bold;
 
     background: white;
