@@ -452,6 +452,7 @@
   width: 100%;
   height: var(--toolbar-height);
   padding: 6px;
+  margin:4px;
 
   box-sizing: border-box;
 
