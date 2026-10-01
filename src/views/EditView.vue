@@ -516,8 +516,10 @@
     background: #ffd180;
 
     border: 2px solid #ffb74d;
+    height:var(--toolbar-height);
+    padding:2px;
 
-    transform: scale(1.2);
+    transform: scale(1.08);
 
     box-shadow:
       0 0 8px rgba(0,0,0,.25),
