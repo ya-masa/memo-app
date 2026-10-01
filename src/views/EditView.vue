@@ -453,7 +453,7 @@
     width: 100%;
     height: var(--toolbtn-height);
 
-    margin: 0;
+    margin: 2px;
     padding: 4px;
 
     border-radius: 12px;
@@ -495,10 +495,7 @@
     background: #ffd180;
 
     border: 2px solid #ffb74d;
-    height:var(--toolbtn-height);
-    padding:2px;
-
-    transform: scale(1.08);
+    height:var(--toolbar-height);
 
     box-shadow:
       0 0 8px rgba(0,0,0,.25),
