@@ -495,7 +495,7 @@
     background: #ffd180;
 
     border: 2px solid #ffb74d;
-    height:var(--toolbar-height);
+    height:var(--toolbtn-height);
 
     box-shadow:
       0 0 8px rgba(0,0,0,.25),
