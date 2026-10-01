@@ -450,7 +450,7 @@
   gap: 4px;
 
   width: 100%;
-  height: clamp(20px, 14vw, 150px);
+  height: var(--toolbar-height);
   padding: 6px;
 
   box-sizing: border-box;
@@ -472,7 +472,7 @@
   .bold-btn,
   .color-btn {
     width: 100%;
-    height: clamp(20px, 14vw, 150px);
+    height: var(--toolbtn-height);
 
     margin: 0;
     padding: 4px;
@@ -487,7 +487,7 @@
 
     gap: 2px;
 
-    font-size: clamp(4px, 2vw, 20px);
+    font-size: var(--button-font-size);
     font-weight: bold;
 
     background: white;
