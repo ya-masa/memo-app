@@ -403,7 +403,7 @@
 
   .back-btn {
     width: 100px;
-    height: 55px;
+    height: var(--button-height);
 
     border: none;
     border-radius: 10px;
