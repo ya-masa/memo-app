@@ -74,7 +74,7 @@
     --memo-min-height: 70px;
     --toolbtn-height:33px;
     --toolbtn-active-height:50px;
-    --toolbar-height:58px;
+    --toolbar-height:60px;
     --toolbtn-font-size:4px;
   }
 
@@ -90,7 +90,7 @@
     --memo-min-height: 90px;
     --toolbtn-height:38px;
     --toolbtn-active-height:56px;
-    --toolbar-height:64px;
+    --toolbar-height:66px;
     --editer-padding-top:60px;
     --toolbtn-font-size:6px;
   }
@@ -107,7 +107,7 @@
     --memo-min-height: 110px;
     --toolbtn-height:44px;
     --toolbtn-active-height:68px;
-    --toolbar-height:76px;
+    --toolbar-height:78px;
     --toolbtn-font-size:8px;
   }
 
@@ -123,7 +123,7 @@
     --memo-min-height: 140px;
     --toolbtn-height:48px;
     --toolbtn-active-height:74px;
-    --toolbar-height:82px;
+    --toolbar-height:84px;
     --toolbtn-font-size:10px;
   }
 
@@ -139,7 +139,7 @@
     --memo-min-height: 180px;
     --toolbtn-height:54px;
     --toolbtn-active-height:80px;
-    --toolbar-height:88px;
+    --toolbar-height:90px;
     --toolbtn-font-size:12px;
     
   }
