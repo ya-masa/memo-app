@@ -517,7 +517,7 @@
 
     border: 2px solid #ffb74d;
 
-    transform: scale(1.08);
+    transform: scale(1.2);
 
     box-shadow:
       0 0 8px rgba(0,0,0,.25),

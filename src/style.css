@@ -72,7 +72,7 @@
     --memo-padding: 5px;
     --memo-min-height: 70px;
     --toolbtn-height:33px;
-    --toolbar-height:46px;
+    --toolbar-height:50px;
     --toolbtn-font-size:4px;
   }
 
@@ -101,7 +101,7 @@
     --memo-padding: 5px;
     --memo-min-height: 110px;
     --toolbtn-height:44px;
-    --toolbar-height:74px;
+    --toolbar-height:68px;
     --toolbtn-font-size:8px;
   }
 
@@ -115,7 +115,7 @@
     --memo-padding: 5px;
     --memo-min-height: 140px;
     --toolbtn-height:48px;
-    --toolbar-height:88px;
+    --toolbar-height:74px;
     --toolbtn-font-size:10px;
   }
 
@@ -129,7 +129,7 @@
     --memo-padding: 5px;
     --memo-min-height: 180px;
     --toolbtn-height:54px;
-    --toolbar-height:100px;
+    --toolbar-height:88px;
     --toolbtn-font-size:12px;
     
   }
