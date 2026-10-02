@@ -444,6 +444,8 @@ onMounted(async () => {
     -webkit-box-orient: vertical;
     font-size: var(--memo-font-size);
     line-height: 1.5;
+    
+    padding-right: 100px;
   }
 
   .memo-date {
@@ -502,13 +504,17 @@ onMounted(async () => {
 
   /*　ピン止め */
   .pin-btn {
-  min-height: var(--button-font-size);
-  text-align: right;
-  padding: 4px 12px;
-  margin-top: 6px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  background: transparent;
-  font-size: var(--date-font-size);
-}
+    position: absolute;
+    top: 6px;
+    right: 6px;
+
+    min-height: 36px;
+    padding: 4px 12px;
+    margin: 0;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: transparent;
+    font-size: var(--date-font-size);
+  }
 </style>
