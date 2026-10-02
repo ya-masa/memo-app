@@ -503,6 +503,7 @@ onMounted(async () => {
   /*　ピン止め */
   .pin-btn {
   min-height: var(--button-font-size);
+  text-align: right;
   padding: 4px 12px;
   margin-top: 6px;
   border: 1px solid #ddd;
