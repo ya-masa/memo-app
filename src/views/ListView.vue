@@ -33,6 +33,10 @@
       >
         🔍探す
       </button>
+      <select class="menu-select" v-model="sortOrder">
+        <option value="updatedAt">並べ替え：更新日時順</option>
+        <option value="createdAt">並べ替え：作成順</option>
+      </select>
       <select 
         class="menu-select"
         v-model="theme"
@@ -66,10 +70,6 @@
         </option>
       </select>
     </div>
-      <select class="menu-select" v-model="sortOrder">
-        <option value="updatedAt">並べ替え：更新日時順</option>
-        <option value="createdAt">並べ替え：作成順</option>
-      </select>
     <div
       v-if="mode === 'delete'"
       class="select-actions"
@@ -125,6 +125,9 @@
         v-html="memo.content"
         @click.stop="mode !== 'delete' && editMemo(memo)"
       ></div>
+      <div class="memo-date">
+        {{ formatDate(memo.updatedAt || memo.createdAt) }}
+      </div>
       <button
         v-if="mode !== 'delete'"
         class="pin-btn"
@@ -132,9 +135,6 @@
       >
         {{ memo.pinned ? '📌固定中' : '📍ピン止め' }}
       </button>
-      <div class="memo-date">
-        {{ formatDate(memo.updatedAt || memo.createdAt) }}
-      </div>
     </div>
     <div
       v-if="mode === 'find' && filteredMemos.length === 0"
