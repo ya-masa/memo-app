@@ -66,6 +66,10 @@
         </option>
       </select>
     </div>
+      <select class="menu-select" v-model="sortOrder">
+        <option value="updatedAt">並べ替え：更新日時順</option>
+        <option value="createdAt">並べ替え：作成順</option>
+      </select>
     <div
       v-if="mode === 'delete'"
       class="select-actions"
@@ -121,7 +125,13 @@
         v-html="memo.content"
         @click.stop="mode !== 'delete' && editMemo(memo)"
       ></div>
-
+      <button
+        v-if="mode !== 'delete'"
+        class="pin-btn"
+        @click.stop="togglePin(memo)"
+      >
+        {{ memo.pinned ? '📌固定中' : '📍ピン止め' }}
+      </button>
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
       </div>
@@ -165,6 +175,7 @@ const toggleMenu = () => {
 }
 
 const searchText = ref('')
+const sortOrder = ref('createdAt')
 
 watch(theme, (value) => {
   setTheme(value)
@@ -183,12 +194,8 @@ const toggleSelect = (id) => {
     selectedIds.value.splice(index, 1)
   }
 }
-
 const loadMemos = async () => {
-  memos.value = await db.memos
-    .orderBy('createdAt')
-    .reverse()
-    .toArray()
+  memos.value = await db.memos.toArray()
 }
 
 const newMemo = () => {
@@ -238,24 +245,59 @@ onMounted(async () => {
   await loadMemos()
 })
 
-const filteredMemos = computed(() => {
-  if (mode.value !== 'find') {
-    return memos.value
-  }
-  if (!searchText.value.trim()) {
-    return memos.value
-  }
+  const filteredMemos = computed(() => {
+    const result = [...memos.value]
 
-  const keyword = searchText.value.toLowerCase()
+    result.sort((a, b) => {
+      // ピン止めしたメモを先頭にする
+      const pinDiff =
+        Number(!!b.pinned) - Number(!!a.pinned)
 
-  return memos.value.filter(memo => {
-    const text = memo.content
-      .replace(/<[^>]*>/g, '')
-      .toLowerCase()
+      if (pinDiff !== 0) return pinDiff
 
-    return text.includes(keyword)
+      // 選択した日時で並べ替える
+      const dateA = new Date(
+        sortOrder.value === 'updatedAt'
+          ? (a.updatedAt || a.createdAt)
+          : a.createdAt
+      ).getTime()
+
+      const dateB = new Date(
+        sortOrder.value === 'updatedAt'
+          ? (b.updatedAt || b.createdAt)
+          : b.createdAt
+      ).getTime()
+
+      return dateB - dateA
+    })
+
+    if (mode.value !== 'find' || !searchText.value.trim()) {
+      return result
+    }
+
+    const keyword = searchText.value.trim().toLowerCase()
+
+    return result.filter(memo => {
+      const text = (memo.content || '')
+        .replace(/<[^>]*>/g, '')
+        .toLowerCase()
+
+      return text.includes(keyword)
+    })
   })
-})
+  const togglePin = async (memo) => {
+    const pinned = !memo.pinned
+
+    await db.memos.update(memo.id, { pinned })
+
+    const target = memos.value.find(
+      item => item.id === memo.id
+    )
+
+    if (target) {
+      target.pinned = pinned
+    }
+  }
 </script>
 
 
@@ -458,4 +500,15 @@ const filteredMemos = computed(() => {
     font-size:var(--editor-font-size);
     height:80px;
   }
+
+  /*　ピン止め */
+  .pin-btn {
+  min-height: var(--button-font-size);
+  padding: 4px 12px;
+  margin-top: 6px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: transparent;
+  font-size: var(--date-font-size);
+}
 </style>
