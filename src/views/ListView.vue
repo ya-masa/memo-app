@@ -124,16 +124,19 @@
         v-html="memo.content"
         @click.stop="mode !== 'delete' && editMemo(memo)"
       ></div>
-      <div class="memo-date">
-        {{ formatDate(memo.updatedAt || memo.createdAt) }}
+      <div class="memo-footer">
+        <div class="memo-date">
+          {{ formatDate(memo.updatedAt || memo.createdAt) }}
+        </div>
+
+        <button
+          v-if="mode !== 'delete'"
+          class="pin-btn"
+          @click.stop="togglePin(memo)"
+        >
+          {{ memo.pinned ? '📌固定中' : '📍ピン止め' }}
+        </button>
       </div>
-      <button
-        v-if="mode !== 'delete'"
-        class="pin-btn"
-        @click.stop="togglePin(memo)"
-      >
-        {{ memo.pinned ? '📌固定中' : '📍ピン止め' }}
-      </button>
     </div>
     <div
       v-if="mode === 'find' && filteredMemos.length === 0"
