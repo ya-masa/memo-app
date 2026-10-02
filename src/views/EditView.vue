@@ -451,10 +451,10 @@
   .bold-btn,
   .color-btn {
     width: 100%;
-    height: var(--toolbtn-height);
+    height: var(--toolbtn-active-height);
 
-    margin: 2px;
-    padding: 4px;
+    margin: auto 5px;
+    padding: 2px;
 
     border-radius: 12px;
 
