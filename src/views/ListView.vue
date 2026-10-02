@@ -119,13 +119,6 @@
       >
         {{ selectedIds.includes(memo.id) ? '✓' : '' }}
       </span>
-      <button
-        v-if="mode !== 'delete'"
-        class="pin-btn"
-        @click.stop="togglePin(memo)"
-      >
-        {{ memo.pinned ? '📌固定中' : '📍ピン止め' }}
-      </button>
       <div
         class="memo-preview"
         v-html="memo.content"
@@ -134,6 +127,13 @@
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
       </div>
+      <button
+        v-if="mode !== 'delete'"
+        class="pin-btn"
+        @click.stop="togglePin(memo)"
+      >
+        {{ memo.pinned ? '📌固定中' : '📍ピン止め' }}
+      </button>
     </div>
     <div
       v-if="mode === 'find' && filteredMemos.length === 0"
@@ -222,6 +222,8 @@ const deleteSelected = async () => {
   if (!selectedIds.value.length) return
 
   if (!confirm('選択したメモを削除しますか？')) {
+    selectedIds.value = []
+    mode.value = ''
     return
   }
 
@@ -444,8 +446,6 @@ onMounted(async () => {
     -webkit-box-orient: vertical;
     font-size: var(--memo-font-size);
     line-height: 1.5;
-    
-    padding-right: 100px;
   }
 
   .memo-date {
