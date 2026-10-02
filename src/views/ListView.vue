@@ -302,7 +302,7 @@ const filteredMemos = computed(() => {
 
   .new-btn {
     width: 200px;
-    height: 70px;
+    height: var(--button-height);
 
     background: #4caf50;
     color: white;
@@ -321,7 +321,7 @@ const filteredMemos = computed(() => {
 
   .del-btn {
     width: 140px;
-    height: 70px;
+    height: var(--button-height);
 
     background: #fb6565;
     color: white;
