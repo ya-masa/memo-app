@@ -119,7 +119,13 @@
       >
         {{ selectedIds.includes(memo.id) ? '✓' : '' }}
       </span>
-
+      <button
+        v-if="mode !== 'delete'"
+        class="pin-btn"
+        @click.stop="togglePin(memo)"
+      >
+        {{ memo.pinned ? '📌固定中' : '📍ピン止め' }}
+      </button>
       <div
         class="memo-preview"
         v-html="memo.content"
@@ -128,13 +134,6 @@
       <div class="memo-date">
         {{ formatDate(memo.updatedAt || memo.createdAt) }}
       </div>
-      <button
-        v-if="mode !== 'delete'"
-        class="pin-btn"
-        @click.stop="togglePin(memo)"
-      >
-        {{ memo.pinned ? '📌固定中' : '📍ピン止め' }}
-      </button>
     </div>
     <div
       v-if="mode === 'find' && filteredMemos.length === 0"
