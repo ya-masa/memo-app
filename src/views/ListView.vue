@@ -98,6 +98,9 @@
           閉じる
         </button>
       </div>
+      <div>
+        <p>お知らせ：アプリ修正中　ご迷惑おかけして申し訳ありません</p>
+      </div>
     <!-- メモ一覧 -->
     <div
       v-for="memo in filteredMemos"
@@ -200,11 +203,13 @@ const formatDate = (date) => {
   const d = new Date(date)
   const now = new Date()
 
-  if (d.getFullYear() === now.getFullYear()) {
-    return `${d.getMonth() + 1}月${d.getDate()}日`
-  }
+  const dateStr = d.getFullYear() === now.getFullYear()
+    ? `${d.getMonth() + 1}月${d.getDate()}日`
+    : `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
 
-  return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
+  const timeStr = `${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`
+
+  return `${dateStr} ${timeStr}`
 }
 
 const deleteSelected = async () => {
