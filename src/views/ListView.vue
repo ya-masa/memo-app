@@ -288,7 +288,6 @@ const filteredMemos = computed(() => {
 
   button ,.menu select{
     padding: 10px 18px;
-    margin: 5px;
 
     min-height: var(--button-height);
 
