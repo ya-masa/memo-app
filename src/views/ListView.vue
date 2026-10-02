@@ -308,7 +308,7 @@ const filteredMemos = computed(() => {
     border: none;
 
     display: block;
-    margin: 5px auto;
+    margin: 0px auto;
 
     box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
   }
@@ -343,7 +343,7 @@ const filteredMemos = computed(() => {
   .select-color {
     width: 95%;
 
-    margin: 15px auto;
+    margin: 5px auto;
     padding: 20px;
 
     border: 1px solid #ddd;
@@ -402,9 +402,7 @@ const filteredMemos = computed(() => {
 
   .memo-date {
     text-align: right;
-
-    color: #888;
-
+    color: #222;
     font-size: var(--date-font-size);
   }
 
