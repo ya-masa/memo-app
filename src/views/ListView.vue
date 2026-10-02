@@ -449,7 +449,6 @@ onMounted(async () => {
   }
 
   .memo-date {
-    text-align: right;
     color: #222;
     font-size: var(--date-font-size);
   }
@@ -503,18 +502,26 @@ onMounted(async () => {
   }
 
   /*　ピン止め */
+  .memo-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .memo-date {
+    color: #222;
+    font-size: var(--date-font-size);
+  }
+
   .pin-btn {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-
     min-height: 36px;
-    padding: 4px 12px;
-    margin: 0;
-
+    padding: 4px 10px;
     border: 1px solid #ddd;
     border-radius: 12px;
     background: transparent;
     font-size: var(--date-font-size);
+    white-space: nowrap;
   }
 </style>
