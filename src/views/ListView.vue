@@ -419,7 +419,7 @@ onMounted(async () => {
   }
   /* お知らせ */
   p{
-    font-size:var(--editor-font-size);
+    font-size:12px;
   }
   
     /* ---------------- */
